@@ -6,14 +6,16 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import reducer from './reducer';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { combineForms } from 'react-redux-form';
 import Users from './Users';
 import Records from './Records';
+import RecordsForm from './Records/Edit';
 
 const logger = createLogger({});
 
 const
     store = createStore(reducer, applyMiddleware(thunk, logger)),
-    App = () => <div><Records /></div>;
+    App = () => <RecordsForm />;
 
     console.log(store.getState())
 

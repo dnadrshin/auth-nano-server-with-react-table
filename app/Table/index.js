@@ -14,7 +14,7 @@ const
     Table = ({data, columns, columnSettings, module, toggleSorting}) => <table>
         <tbody>
             <tr>
-                {extendColumns(columns).map((column, i) => 
+                {extendColumns(columns).map((column, i) =>
                 <th
                     key={`${module}-header-${i}`}
                     onClick={column.isSorted ? () => toggleSorting(module, column.name): () => {console.log('not sort')}}
