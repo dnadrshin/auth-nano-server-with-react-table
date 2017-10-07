@@ -6,16 +6,15 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import reducer from './reducer';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import Users from './Users'
+import Users from './Users';
+import Records from './Records';
 
 const logger = createLogger({});
 
 const
-    store = createStore(reducer, applyMiddleware(thunk, logger));
+    store = createStore(reducer, applyMiddleware(thunk, logger)),
+    App = () => <div><Records /></div>;
 
-console.log(store.getState())
-
-const
-    App = () => <div><Users /></div>;
+    console.log(store.getState())
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.querySelector('#root'));

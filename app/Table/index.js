@@ -3,6 +3,7 @@ import _ from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
 import Row from './Row';
+import actions from './actions';
 
 const
     extendColumns = columns => columns.concat(
@@ -10,10 +11,16 @@ const
         {title: 'Delete', name: 'delete', isServiceField: true, action: () => {}},
     ),
 
-    Table = ({data, columns}) => <table>
+    Table = ({data, columns, module, toggleSorting}) => <table>
         <tbody>
             <tr>
-                {extendColumns(columns).map((column, i) => <th key={i}>{column.title}</th>)}
+                {extendColumns(columns).map((column, i) => 
+                    <th
+                        key={`${module}-header-${i}`}
+                        onClick={()=> column.isSorted ? toggleSorting(): () => {}}
+                    >
+                        {column.title}
+                    </th>)}
             </tr>
 
             {data
@@ -23,4 +30,10 @@ const
         </tbody>
     </table>;
 
-export default connect()(Table);
+export default connect(
+    null,
+
+    props => ({
+        toggleSorting: actions.toggleSorting,
+    })
+)(Table);

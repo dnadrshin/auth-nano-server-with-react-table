@@ -6,7 +6,7 @@ import columns from './columns';
 
 const
     Users = props => <div>
-            <Table data={props.users} columns={columns}/>
+            <Table data={props.users} columns={columns} module="users"/>
         </div>;
 
 export default compose(
