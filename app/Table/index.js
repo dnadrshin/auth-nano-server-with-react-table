@@ -5,16 +5,19 @@ import {connect} from 'react-redux';
 import Row from './Row';
 
 const
-    extendColumns: Array<{name: string, key: string}> = (columns: Array<{name: string, key: string}>) => columns.push({name: 'Edit'}, {name: 'Delete'}),
+    extendColumns = columns => columns.concat(
+        {title: 'Edit', name: 'mode edit', isServiceField: true, action: () => {console.log(123)}}, 
+        {title: 'Delete', name: 'delete', isServiceField: true, action: () => {}},
+    ),
 
     Table = ({data, columns}) => <table>
         <tbody>
             <tr>
-                {(columns).map((column, i) => <th key={i}>{column.name}</th>)}
+                {extendColumns(columns).map((column, i) => <th key={i}>{column.title}</th>)}
             </tr>
 
             {data
-                ? data.map((row, i) => <Row data={row} columns={columns} key={row.id}/>)
+                ? data.map((row, i) => <Row data={row} columns={extendColumns(columns)} key={row.id}/>)
                 : <tr>no data</tr>
             }
         </tbody>

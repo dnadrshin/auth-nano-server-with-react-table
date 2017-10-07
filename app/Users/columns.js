@@ -1,16 +1,16 @@
 export default [
     {
-        name: 'First Name',
-        key: 'firstName'
+        title: 'First Name',
+        name: 'firstName'
     },
 
     {
-        name: 'Last Name',
-        key: 'lastName'
+        title: 'Last Name',
+        name: 'lastName'
     },
 
     {
-        name: 'Email',
-        key: 'email'
+        title: 'Email',
+        name: 'email'
     }
 ]
