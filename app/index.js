@@ -13,6 +13,8 @@ const logger = createLogger({});
 const
     store = createStore(reducer, applyMiddleware(thunk, logger));
 
+console.log(store.getState())
+
 const
     App = () => <div><Users /></div>;
 
