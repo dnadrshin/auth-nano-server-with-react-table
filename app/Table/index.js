@@ -11,16 +11,27 @@ const
         {title: 'Delete', name: 'delete', isServiceField: true, action: () => {}},
     ),
 
-    Table = ({data, columns, module, toggleSorting}) => <table>
+    Table = ({data, columns, columnSettings, module, toggleSorting}) => <table>
         <tbody>
             <tr>
                 {extendColumns(columns).map((column, i) => 
-                    <th
-                        key={`${module}-header-${i}`}
-                        onClick={column.isSorted ? () => toggleSorting(module, column.name): () => {console.log('not sort')}}
-                    >
-                        {column.title}
-                    </th>)}
+                <th
+                    key={`${module}-header-${i}`}
+                    onClick={column.isSorted ? () => toggleSorting(module, column.name): () => {console.log('not sort')}}
+                >
+                    {column.title}
+
+                    {column.isSorted && !_.get(columnSettings,'sorting.order')
+                        ? <i className="material-icons">swap_vert</i>
+                        : ''
+                    }
+
+                    {_.get(columnSettings,'sorting.column') === column.name
+                        ? _.get(columnSettings,'sorting.order') === 'asc' 
+                            ? <i className="material-icons">arrow_downward</i>
+                            : <i className="material-icons">arrow_upward</i>
+                        : ''}
+                </th>)}
             </tr>
 
             {data
@@ -31,7 +42,9 @@ const
     </table>;
 
 export default connect(
-    null,
+    (state, props) => ({
+        columnSettings: state.table[props.module],
+    }),
 
     ({
         toggleSorting: actions.toggleSorting,
