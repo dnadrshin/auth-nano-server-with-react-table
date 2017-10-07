@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { Control, Form, Field } from 'react-redux-form';
 import { compose, withHandlers } from 'recompose';
 import SelectField from '../../generic/SelectField';
+import DateField from '../../generic/DateField';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 
 const
-    initForm = {email: '', date: '', distance: '', time: ''},
+    initForm = {email: '', date: moment('Wed Oct 11 2017 02:00:00 GMT+0200 (EET)'), distance: '', time: ''},
 
     RecordForm = props => <Form model="record" onSubmit={props.submit}>
         <SelectField 
@@ -18,10 +19,9 @@ const
             value="id"
         />
 
-        <Field model="record">
-            <DatePicker
-            />
-        </Field>
+        <DateField
+            model="record.date"
+        />
 
         <Control.text model="record.distance" id="record.distance" />
         <Control.text model="record.time" id="record.time" />
