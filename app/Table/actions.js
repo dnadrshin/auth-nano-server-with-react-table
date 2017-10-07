@@ -1,10 +1,10 @@
 import keyMirror from 'keymirror';
 
 const
-    toggleSorting = () => {};
+    toggleSorting = (key, column) => ({column, key, type: types.TABLE_TOGGLE_SORTING}),
 
-const types = keyMirror({
-  TOGGLE_SORTING: null,
-});
+    types = keyMirror({
+        TABLE_TOGGLE_SORTING: null,
+    });
 
 export default { types, toggleSorting };

@@ -17,7 +17,7 @@ const
                 {extendColumns(columns).map((column, i) => 
                     <th
                         key={`${module}-header-${i}`}
-                        onClick={()=> column.isSorted ? toggleSorting(): () => {}}
+                        onClick={column.isSorted ? () => toggleSorting(module, column.name): () => {console.log('not sort')}}
                     >
                         {column.title}
                     </th>)}
@@ -33,7 +33,7 @@ const
 export default connect(
     null,
 
-    props => ({
+    ({
         toggleSorting: actions.toggleSorting,
     })
 )(Table);
