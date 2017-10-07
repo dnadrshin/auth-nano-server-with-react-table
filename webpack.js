@@ -24,6 +24,13 @@ module.exports = {
       query: {
         presets: ['es2015', 'react', 'stage-0', 'stage-1'],
       },
+    },{
+      test: /\.css$/,
+      loader:'style-loader!css-loader'
     }]
   },
 };
+
+loaders:[{
+  test:'/\.css$/',loader:'style!css!'
+}]
