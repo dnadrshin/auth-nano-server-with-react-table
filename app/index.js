@@ -10,12 +10,13 @@ import { combineForms } from 'react-redux-form';
 import Users from './Users';
 import Records from './Records';
 import RecordsForm from './Records/Edit';
+import Login from './Login';
 
 const logger = createLogger({});
 
 const
     store = createStore(reducer, applyMiddleware(thunk, logger)),
-    App = () => <RecordsForm />;
+    App = () => <Login />;
 
     console.log(store.getState())
 
