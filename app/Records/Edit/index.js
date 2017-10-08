@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import { Control, Form, Field } from 'react-redux-form';
@@ -9,9 +10,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 
 const
-    initForm = {email: '', date: moment('Wed Oct 11 2017 02:00:00 GMT+0200 (EET)'), distance: '', time: ''},
+    initForm = {email: '', date: moment(), distance: '', time: ''},
 
-    RecordForm = props => <Form model="record" onSubmit={props.submit}>
+    RecordForm = (props: {
+        submit: Function,
+        record: {}
+    }) => <Form model="record" onSubmit={props.submit}>
         <SelectField 
             model="record.email"
             listModel="users"

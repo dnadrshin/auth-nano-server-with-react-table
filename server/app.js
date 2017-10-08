@@ -9,9 +9,6 @@ const
     cookieParser = require('cookie-parser');
     //middlewares = require('./middleware');
 
-// view engine setup
-// app.set('views', path.join(__dirname, './views'));
-// app.set('view engine', 'jade');
 app.set('title', 'Chat')
 
 app.use(express.static('public'));
@@ -24,8 +21,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(session({keys: ['secretkey1', 'secretkey2', '...']}));
 
-// Register routes
 //app.all('/admin', middlewares.mustAuthenticated);
-//app.use('/', require('./routes/'));
 
 module.exports = app
