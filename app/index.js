@@ -16,7 +16,7 @@ const logger = createLogger({});
 
 const
     store = createStore(reducer, applyMiddleware(thunk, logger)),
-    App = () => <Login />;
+    App = () => <Records />;
 
     console.log(store.getState())
 

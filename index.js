@@ -3,9 +3,9 @@ var express = require('express');
 var webpack = require('webpack');
 var config = require('./webpack.js');
 
-var bodyParser = require('body-parser'),
-var session = require('cookie-session'),
-var cookieParser = require('cookie-parser'),
+var bodyParser = require('body-parser');
+var session = require('cookie-session');
+var cookieParser = require('cookie-parser');
 var apiRoutes = require('./server/routes/API');
 
 var app = express();

@@ -6,6 +6,9 @@ import {initForm as recordInitForm} from './Records/Edit';
 import {initForm as loginInitForm} from './Login';
 import tableReducer from './Table/reducer';
 import { createForms, combineForms } from 'react-redux-form';
+import recordsRest from './Records/rest';
+
+console.log(recordsRest.reducers)
 
 const
   reducers = {
@@ -13,6 +16,7 @@ const
     records: recordsReducer,
     table: tableReducer,
     users: userReducer,
+    rest: combineReducers(recordsRest.reducers),
 
     ...createForms({
         record: recordInitForm,
