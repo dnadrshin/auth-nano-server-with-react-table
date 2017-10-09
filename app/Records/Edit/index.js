@@ -8,6 +8,7 @@ import DateField from '../../generic/DateField';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import rest from '../rest'
 
 const
     initForm = {email: '', date: moment(), distance: '', time: ''},
@@ -38,10 +39,14 @@ export default compose(
             record: state.record,
             users : state.users,
         }),
+
+        {
+            post: rest.actions.records.post,
+        }
     ),
 
     withHandlers({
-        submit: props => () => console.log(props.record)
+        submit: props => () => props.post()
     })
 )(RecordForm);
 

@@ -12,5 +12,7 @@ export default reduxApi({
                 "Accept": "application/json"
             }
         }
-    }
+    },
+
+    record: '/api/record/:id',
 }).use("fetch", adapterFetch(fetch));
