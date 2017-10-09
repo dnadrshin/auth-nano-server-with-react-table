@@ -2,6 +2,7 @@ var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
 var config = require('./webpack.js');
+var mongoose = require('mongoose');
 
 var bodyParser = require('body-parser');
 var session = require('cookie-session');
@@ -10,6 +11,7 @@ var apiRoutes = require('./server/routes/API');
 
 var app = express();
 var compiler = webpack(config);
+var settings = require('./server/settings');
 
 app.set('title', 'Tracker');
 app.use(bodyParser.json());
@@ -32,11 +34,15 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(3000, function(err) {
+// Connect mongoose
+mongoose.connect(settings.mongodbUrl, err => console.log(err ? 'Could not connect to mongodb!' : 'MongoDB connection established'));
+mongoose.set('debug', true);
+
+app.listen(settings.port, function(err) {
     if (err) {
         console.log(err);
         return;
     }
 
-    console.log('Listening at http://localhost:3000');
+    console.log(`Listening at http://localhost:${settings.port}`);
 });
