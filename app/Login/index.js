@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Control, Form, Field } from 'react-redux-form';
 import { compose, withHandlers } from 'recompose';
+import rest from '../Rest'
 
 const
     initForm = {email: '', password: ''},
@@ -20,10 +21,20 @@ export default compose(
         state => ({
             login : state.login,
         }),
+
+        dispatch => ({
+            post: (params, data, cb) => dispatch(rest('login').actions.login.post(params, data, cb)),
+        })
     ),
 
     withHandlers({
-        submit: props => () => console.log(props.login)
+        submit: props => () => props.post(
+            {},
+            {body: JSON.stringify(props.login)},
+
+            (err, data)=> {
+                console.log(err, data)
+        })
     })
 )(LoginForm);
 

@@ -12,9 +12,11 @@ var apiRoutes = require('./server/routes/API');
 var app = express();
 var compiler = webpack(config);
 var settings = require('./server/settings');
+var passportInit = require('./server/passport')
 
 app.set('title', 'Tracker');
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(session({keys: ['tracker']}));
@@ -33,6 +35,8 @@ app.use('/API/', apiRoutes);
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
+
+passportInit(app);
 
 // Connect mongoose
 mongoose.connect(settings.mongodbUrl, err => console.log(err ? 'Could not connect to mongodb!' : 'MongoDB connection established'));

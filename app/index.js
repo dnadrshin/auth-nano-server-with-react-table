@@ -11,12 +11,13 @@ import Users from './Users';
 import Records from './Records';
 import RecordsForm from './Records/Edit';
 import Login from './Login';
+import Registration from './Registration';
 
 const logger = createLogger({});
 
 const
     store = createStore(reducer, applyMiddleware(thunk, logger)),
-    App = () => <Records />;
+    App = () => <Registration />;
 
     console.log(store.getState())
 

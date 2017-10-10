@@ -1,10 +1,13 @@
 const
     mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    passportLocalMongoose = require('tracker');
+    passportLocalMongoose = require('passport-local-mongoose');
 
 const User = new Schema({
     username: String,
+    email: String,
+    firstName: String,
+    surName: String,
     password: String,
     role: String,
     created_at: Date,

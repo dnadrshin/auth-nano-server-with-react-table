@@ -1,6 +1,6 @@
 const
     passport = require('passport'),
-    //Account = require('../models/account'),
+    User = require('../../models/User'),
     router = require('express').Router(),
 
     records = {test:1};
@@ -33,15 +33,38 @@ router.get('/user/:id', (req, res) => {
     res.json({test: 1})
 })
 
-router.post('/user/', (req, res) => {
-    console.log(req.params.id)
-    res.json({test: 1})
+router.post('/user', (req, res, next) => {
+    User.register(
+        new User({
+            username: req.body.username,
+            firstName: req.body.firstName,
+            surName: req.body.surName,
+            email: req.body.username,
+            role: 'user',
+            created_at: new Date()
+        }),
+
+        req.body.passwordFirst,
+
+        err => {
+            if (err) {
+                console.log('error while user register!', err);
+                return next(err);
+            }
+
+            console.log('user registered!');
+    });
+});
+
+router.put('/user/', (req, res) => {
+    console.log(req.params, req.body)
+    res.json(req.body)
 })
 
-router.put('/users/:id', (req, res) => {
-    console.log(req.params.id)
-    res.json({test: 1})
-})
+router.post('/login', passport.authenticate('local'), (req, res) => {
+    console.log(req.body);
+    res.json(req.body);
+});
 
 // router.get('/', (req, res) => {
 // res.render('index', { user: req.user });

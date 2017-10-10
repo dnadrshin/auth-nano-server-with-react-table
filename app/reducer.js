@@ -3,12 +3,11 @@ import { combineReducers } from 'redux';
 import userReducer from './Users/reducer';
 import recordsReducer from './Records/reducer';
 import {initForm as recordInitForm} from './Records/Edit';
+import {initForm as registrationInitForm} from './Registration';
 import {initForm as loginInitForm} from './Login';
 import tableReducer from './Table/reducer';
 import { createForms, combineForms } from 'react-redux-form';
 import recordsRest from './Records/rest';
-
-console.log(recordsRest.reducers)
 
 const
   reducers = {
@@ -20,6 +19,7 @@ const
 
     ...createForms({
         record: recordInitForm,
+        registration: registrationInitForm,
         login : loginInitForm,
     }),
   };
