@@ -19,7 +19,7 @@ const
                 }}
             />
 
-            <button onClick={() => props.pushURL('new')()}>New Record</button>
+            <button onClick={props.pushURL('new')}>New Record</button>
         </div>;
 
 export default compose(
