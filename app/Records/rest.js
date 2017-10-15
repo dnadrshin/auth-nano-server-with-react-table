@@ -17,6 +17,22 @@ export default reduxApi({
         }
     },
 
+    deleteRecord:{
+        crud: true,
+        url: '/api/records/:id',
+        virtual: true,
+        
+        options: {
+            //method: 'delete',
+
+            headers: {
+                "token": localStorage.getItem('token'),
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            }
+        }
+    },
+
 
     record: '/api/record/:id',
 }).use("fetch", adapterFetch(fetch));

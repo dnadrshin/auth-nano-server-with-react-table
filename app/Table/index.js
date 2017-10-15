@@ -7,14 +7,14 @@ import actions from './actions';
 
 const
     extendColumns = columns => columns.concat(
-        {title: 'Edit', name: 'mode edit', isServiceField: true, action: () => {console.log(123)}}, 
-        {title: 'Delete', name: 'delete', isServiceField: true, action: () => {}},
+        {type: 'edit', title: 'Edit', name: 'mode edit', isServiceField: true, action: () => {console.log(123)}}, 
+        {type: 'remove', title: 'Delete', name: 'delete', isServiceField: true, action: () => {}},
     ),
 
-    Table = ({data, columns, columnSettings, module, toggleSorting}) => <table>
+    Table = ({ columns, columnSettings, data, module, toggleSorting, entityActions}) => <table>
         <tbody>
             <tr>
-                {extendColumns(columns).map((column, i) =>
+                {extendColumns(columns, entityActions).map((column, i) =>
                 <th
                     key={`${module}-header-${i}`}
                     onClick={column.isSorted ? () => toggleSorting(module, column.name): () => {console.log('not sort')}}
@@ -35,7 +35,13 @@ const
             </tr>
 
             {data
-                ? data.map((row, i) => <Row data={row} columns={extendColumns(columns)} key={row._id}/>)
+                ? data.map((row, i) => <Row
+                    data={row}
+                    columns={extendColumns(columns)}
+                    key={row._id}
+                    actions={entityActions}
+                />)
+
                 : <tr><td>no data</td></tr>
             }
         </tbody>

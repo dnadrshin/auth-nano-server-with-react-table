@@ -36,8 +36,13 @@ router.put('/:id', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-    console.log(req.params.id)
-    res.json({test: 1})
+    jwt.verify(req.headers.token, 'tracker_key', function(err, decoded) {
+        if(err) return res.json(err)
+        Record.remove({_id: req.params.id}, err => {
+            if(err) return res.json(err)
+            res.json({status: 'ok'})
+        })
+    })
 })
 
 module.exports = router;
