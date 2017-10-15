@@ -33,15 +33,15 @@ export default compose(
             {body: JSON.stringify(props.login)},
 
             (err, data)=> {
-                localStorage.setItem('token', data.token)
-                console.log(err, data)
+                localStorage.setItem('token', data.token);
+                props.afterLogin();
+                console.log(err, data);
         })
     }),
 
     lifecycle({
         componentDidMount() {
-            if(localStorage.getItem('token'))
-                console.log(localStorage.getItem('token'))
+            
         }
     })
 )(LoginForm);

@@ -6,19 +6,33 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import reducer from './reducer';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { combineForms } from 'react-redux-form';
 import Users from './Users';
+import UsersEdit from './Users/Edit';
 import Records from './Records';
-import RecordsForm from './Records/Edit';
+import RecordsEdit from './Records/Edit';
 import Login from './Login';
+import Header from './Header';
 import Registration from './Registration';
+import {syncHistoryWithStore} from 'react-router-redux';
 
 const logger = createLogger({});
 
 const
     store = createStore(reducer, applyMiddleware(thunk, logger)),
-    App = () => <Registration />;
+    history = syncHistoryWithStore(browserHistory, store);
 
     console.log(store.getState())
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.querySelector('#root'));
+ReactDOM.render(
+    <Provider store={store}>
+        <Router history={syncHistoryWithStore(browserHistory, store)}>
+            <Route path="/" component={Header}>
+                <Route path="/records" component={Records} />
+                <Route path="/records/edit/:id" component={RecordsEdit} />
+                <Route path="/users" component={Users} />
+                <Route path="/users/edit/:id" component={UsersEdit} />
+            </Route>
+        </Router>
+    </Provider>,
+
+    document.querySelector('#root'));

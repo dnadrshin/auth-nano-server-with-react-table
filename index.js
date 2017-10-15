@@ -32,7 +32,7 @@ app.use('/public', express.static('public'));
 
 app.use('/API', apiRoutes);
 
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 

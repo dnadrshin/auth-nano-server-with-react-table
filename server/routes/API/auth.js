@@ -17,6 +17,14 @@ router.post('/login', (req, res, next) => passport.authenticate('local', (err, u
             }, 'tracker_key')});
     })(req, res, next));
 
+router.post('/verify', (req, res, next) => {
+    jwt.verify(req.body.token, 'tracker_key', function(err, decoded) {
+        err
+            ? res.json(err)
+            : res.json({token: 'valid'})
+    })
+});
+
 router.post('/registration', (req, res, next) => {
     User.register(
         new User({
