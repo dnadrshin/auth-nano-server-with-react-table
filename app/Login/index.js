@@ -2,8 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Control, Form, Field } from 'react-redux-form';
-import { compose, withHandlers } from 'recompose';
-import rest from '../Rest'
+import { compose, withHandlers, lifecycle } from 'recompose';
+import rest from './rest'
 
 const
     initForm = {email: '', password: ''},
@@ -11,7 +11,7 @@ const
     LoginForm = (props: {
         submit: Function,
     }) => <Form model="login" onSubmit={props.submit}>
-        <Control.text model="login.email" id="login.email" />
+        <Control.text model="login.username" id="login.username" />
         <Control.text type="password" model="login.password" id="login.password" />
         <button>Log In</button>
     </Form>;
@@ -23,7 +23,7 @@ export default compose(
         }),
 
         dispatch => ({
-            post: (params, data, cb) => dispatch(rest('login').actions.login.post(params, data, cb)),
+            post: (params, data, cb) => dispatch(rest('login').actions.login.post(params, data, cb))
         })
     ),
 
@@ -33,8 +33,16 @@ export default compose(
             {body: JSON.stringify(props.login)},
 
             (err, data)=> {
+                localStorage.setItem('token', data.token)
                 console.log(err, data)
         })
+    }),
+
+    lifecycle({
+        componentDidMount() {
+            if(localStorage.getItem('token'))
+                console.log(localStorage.getItem('token'))
+        }
     })
 )(LoginForm);
 

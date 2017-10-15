@@ -1,15 +1,23 @@
 const
     passport = require('passport'),
     User = require('../../models/User'),
+    jwt = require('jsonwebtoken'),
     router = require('express').Router();
 
 
-router.post('/login', passport.authenticate('local'), (req, res) => {
-    console.log(req.body);
-    res.json(req.body);
-});
+router.post('/login', (req, res, next) => passport.authenticate('local', (err, user, info) => {
+        console.log(err, user, info)
 
-router.post('/registration, (req, res, next) => {
+        res.json({
+            user: user.name,
+
+            token: jwt.sign({
+                user: user.name,
+                exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60)
+            }, 'tracker_key')});
+    })(req, res, next));
+
+router.post('/registration', (req, res, next) => {
     User.register(
         new User({
             username: req.body.username,
