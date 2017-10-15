@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Control, Form, Field } from 'react-redux-form';
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers, lifecycle } from 'recompose';
 import SelectField from '../../generic/SelectField';
 import DateField from '../../generic/DateField';
 import DatePicker from 'react-datepicker';
@@ -17,7 +17,6 @@ const
         submit: Function,
         record: {}
     }) => <Form model="record" onSubmit={props.submit}>
-
         <DateField
             model="record.date"
         />
@@ -35,12 +34,26 @@ export default compose(
         }),
 
         dispatch => ({
+            sync: (params, data, cb) => dispatch(rest.actions.record.get(params, data, cb)),
             post: (params, data, cb) => dispatch(rest.actions.records.post(params, data, cb))
         })
     ),
 
+    lifecycle({
+        componentDidMount() {
+            if(this.props.params.id !== 'new')
+                this.props.sync(
+                    {id: this.props.params.id},
+
+                    (err, data) => {
+                        console.log('records sync', err, data)
+                    }
+                );
+        }
+    }),
+
     withHandlers({
-        submit: props => () => props.post(
+        submit: props => () => props.sync(
             {},
             {body: JSON.stringify({...props.record, token: localStorage.getItem('token')})},
 

@@ -10,9 +10,11 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/:id', (req, res) => {
-    console.log(req.body)
-    res.json({test: 1})
+router.get('/details/:id', (req, res) => {
+    jwt.verify(req.headers.token, 'tracker_key', function(err, decoded) {
+        if(err) return res.json(err)
+        Record.find({_id: req.params.id}).exec().then( records => res.json(records));
+    })
 })
 
 router.post('/', (req, res) => {
