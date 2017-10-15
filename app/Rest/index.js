@@ -5,7 +5,7 @@ import adapterFetch from "redux-api/lib/adapters/fetch";
 export default entity => reduxApi({
     [entity]: {
         crud: true,
-        url: `/API/${entity}`,
+        url: `/API/auth/${entity}`,
 
         options: {
             headers: {
