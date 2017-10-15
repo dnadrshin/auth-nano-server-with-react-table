@@ -8,7 +8,8 @@ import DateField from '../../generic/DateField';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
-import rest from '../rest'
+import rest from '../rest';
+import { track, actions } from 'react-redux-form';
 
 const
     initForm = {email: '', date: moment(), distance: '', time: ''},
@@ -33,9 +34,10 @@ export default compose(
             users : state.users,
         }),
 
-        dispatch => ({
-            sync: (params, data, cb) => dispatch(rest.actions.record.get(params, data, cb)),
-            post: (params, data, cb) => dispatch(rest.actions.records.post(params, data, cb))
+        (dispatch, props) => ({
+            sync  : (params, data, cb) => dispatch(rest.actions.record.get(params, data, cb)),
+            post  : (params, data, cb) => dispatch(rest.actions.records.post(params, data, cb)),
+            change: (model, value) => dispatch(actions.change(model, value)),
         })
     ),
 
@@ -44,9 +46,13 @@ export default compose(
             if(this.props.params.id !== 'new')
                 this.props.sync(
                     {id: this.props.params.id},
+                    null,
 
                     (err, data) => {
-                        console.log('records sync', err, data)
+                        console.log('record sync', err, data)
+                        this.props.change('record.distance', data.data[0].distance);
+                        this.props.change('record.time', data.data[0].time);
+                        this.props.change('record.date', data.data[0].date);
                     }
                 );
         }
