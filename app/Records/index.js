@@ -30,11 +30,6 @@ export default compose(
 
         dispatch => ({
             sync   : (data, cb) => dispatch(rest.actions.records.sync(data, cb)),
-
-            remove : id => () => dispatch(rest.actions.deleteRecord.delete({id}, null, (err, data) => {
-
-            })),
-
             pushURL: id => () => dispatch(push(`/records/edit/${id}`)),
             dispatch
         })
