@@ -1,18 +1,14 @@
 const
     mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    passportLocalMongoose = require('tracker');
+    Schema = mongoose.Schema;
 
 const Record = new Schema({
     date: Date,
+    userId: String,
     distance: Number,
     time: String,
     created_at: Date,
     last: Date,
-});
-
-Record.plugin(passportLocalMongoose, {
-    limitAttempts: true,
 });
 
 module.exports = mongoose.model('Record', Record);

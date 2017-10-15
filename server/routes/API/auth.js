@@ -9,10 +9,11 @@ router.post('/login', (req, res, next) => passport.authenticate('local', (err, u
         console.log(err, user, info)
 
         res.json({
-            user: user.name,
+            user: user._id,
+            userName: user.name,
 
             token: jwt.sign({
-                user: user.name,
+                user: user._id.toString(),
                 exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60)
             }, 'tracker_key')});
     })(req, res, next));

@@ -13,12 +13,12 @@ import RecordsEdit from './Records/Edit';
 import Login from './Login';
 import Header from './Header';
 import Registration from './Registration';
-import {syncHistoryWithStore} from 'react-router-redux';
+import {syncHistoryWithStore, routerMiddleware} from 'react-router-redux';
 
 const logger = createLogger({});
 
 const
-    store = createStore(reducer, applyMiddleware(thunk, logger)),
+    store = createStore(reducer, applyMiddleware(thunk, logger, routerMiddleware(browserHistory))),
     history = syncHistoryWithStore(browserHistory, store);
 
     console.log(store.getState())
@@ -31,6 +31,7 @@ ReactDOM.render(
                 <Route path="/records/edit/:id" component={RecordsEdit} />
                 <Route path="/users" component={Users} />
                 <Route path="/users/edit/:id" component={UsersEdit} />
+                <Route path="/registration" component={Registration} />
             </Route>
         </Router>
     </Provider>,

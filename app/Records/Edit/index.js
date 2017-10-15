@@ -17,19 +17,13 @@ const
         submit: Function,
         record: {}
     }) => <Form model="record" onSubmit={props.submit}>
-        <SelectField 
-            model="record.email"
-            listModel="users"
-            option="email"
-            value="id"
-        />
 
         <DateField
             model="record.date"
         />
 
-        <Control.text model="record.distance" id="record.distance" />
-        <Control.text model="record.time" id="record.time" />
+        <Control.text model="record.distance" id="record.distance" placeholder="Distance" />
+        <Control.text model="record.time" id="record.time" placeholder="Time" />
         <button>Submit!</button>
     </Form>;
 
@@ -40,13 +34,19 @@ export default compose(
             users : state.users,
         }),
 
-        {
-            post: rest.actions.records.post,
-        }
+        dispatch => ({
+            post: (params, data, cb) => dispatch(rest.actions.records.post(params, data, cb))
+        })
     ),
 
     withHandlers({
-        submit: props => () => props.post()
+        submit: props => () => props.post(
+            {},
+            {body: JSON.stringify({...props.record, token: localStorage.getItem('token')})},
+
+            (err, data)=> {
+                console.log(err, data);
+        })
     })
 )(RecordForm);
 

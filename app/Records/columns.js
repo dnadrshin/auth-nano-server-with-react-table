@@ -1,5 +1,6 @@
 export default [
     {
+        type: 'date',
         title: 'Date',
         name: 'date',
         isSorted: true,

@@ -5,7 +5,8 @@ import { Control, Form, Field } from 'react-redux-form';
 import { compose, withHandlers, lifecycle, withState } from 'recompose';
 import {Link} from 'react-router';
 import Login from '../Login';
-import rest from '../Login/rest'
+import rest from '../Login/rest';
+import {push} from 'react-router-redux';
 
 const
     Header = props => <x-section>
@@ -15,9 +16,13 @@ const
 
         {props.hasToken
             ? <button onClick={props.logout}>Logout</button>
-            : <Login afterLogin={props.afterLogin} />}
-        
-        {props.hasToken && props.children}
+
+            : <x-section>
+                <Login afterLogin={props.afterLogin} />
+                <Link to='/registration'>Registration</Link>
+            </x-section>}
+
+        {(props.hasToken || props.location.pathname === '/registration') && props.children}
     </x-section>;
 
 export default compose(
@@ -27,7 +32,8 @@ export default compose(
         }),
 
         dispatch => ({
-            post: (params, data, cb) => dispatch(rest('verify').actions.verify.post(params, data, cb))
+            post: (params, data, cb) => dispatch(rest('verify').actions.verify.post(params, data, cb)),
+            pushURL: url => dispatch(push(url)),
         })
     ),
 
@@ -35,7 +41,8 @@ export default compose(
 
     withHandlers({
         afterLogin: props => () => {
-            props.toggleHasToken(true)
+            props.toggleHasToken(true);
+            props.pushURL('/records');
         },
 
         logout: props => () => {

@@ -35,8 +35,8 @@ const
             </tr>
 
             {data
-                ? data.map((row, i) => <Row data={row} columns={extendColumns(columns)} key={row.id}/>)
-                : <tr>no data</tr>
+                ? data.map((row, i) => <Row data={row} columns={extendColumns(columns)} key={row._id}/>)
+                : <tr><td>no data</td></tr>
             }
         </tbody>
     </table>;
