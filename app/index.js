@@ -9,6 +9,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import Users from './Users';
 import UsersEdit from './Users/Edit';
 import Records from './Records';
+import Reports from './Reports';
 import RecordsEdit from './Records/Edit';
 import Login from './Login';
 import Header from './Header';
@@ -29,6 +30,7 @@ ReactDOM.render(
             <Route path="/" component={Header}>
                 <Route path="/records" component={Records} />
                 <Route path="/records/edit/:id" component={RecordsEdit} />
+                <Route path="/reports" component={Reports} />
                 <Route path="/users" component={Users} />
                 <Route path="/users/edit/:id" component={UsersEdit} />
                 <Route path="/registration" component={Registration} />
