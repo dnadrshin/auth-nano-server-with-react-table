@@ -8,16 +8,16 @@ router.get('/', (req, res) => {
 })
 
 router.get('/details/:id', (req, res) => {
-    Record.find({_id: req.params.id}).exec().then( records => res.json(records));
+    Record.find({_id: req.params.id}).exec().then(records => res.json(records));
 })
 
-router.post('/', (req, res) => {
+router.post('/details', (req, res) => {
         let record = new Record(Object.assign(req.body, {userId: res.locals.decoded.user}));
 
-        record.save( err => {
-            err
-                ? console.log(err)
-                : () => {console.log('record saved'); res.json({})}
+        record.save((err, data) => {
+            if(err) return res.json(err)
+            console.log('record saved');
+            res.json(data)
         })
 })
 
