@@ -29,8 +29,18 @@ module.exports = {
       loader:'style-loader!css-loader'
     }]
   },
+  resolve: {
+    extensions: ['.json', '.js'],
+
+    modules: [
+      path.resolve(__dirname, './', 'app'),
+      path.resolve(__dirname, './', 'node_modules'),
+    ],
+  },
+
 };
 
 loaders:[{
   test:'/\.css$/',loader:'style!css!'
 }]
+
