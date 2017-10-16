@@ -12,7 +12,7 @@ import rest from '../rest';
 import { track, actions } from 'react-redux-form';
 
 const
-    initForm = {email: '', date: moment(), distance: '', time: ''},
+    initForm = {date: moment(), distance: '', time: ''},
 
     RecordForm = (props: {
         submit: Function,
