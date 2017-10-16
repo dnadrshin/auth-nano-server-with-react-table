@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import columns from './columns';
 import rest from './rest';
 import {push} from 'react-router-redux';
+import Loading from 'generic/Loading';
 
 const
     Records = props => <div>
@@ -19,13 +20,16 @@ const
                 }}
             />
 
+            {props.isLoading && <Loading />}
+
             <button onClick={props.pushURL('new')}>New Record</button>
         </div>;
 
 export default compose(
     connect(
         state => ({
-            records: state.rest.records.data.data,
+            isLoading: state.rest.records.loading,
+            records  : state.rest.records.data.data,
         }),
 
         dispatch => ({
