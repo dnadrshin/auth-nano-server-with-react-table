@@ -37,7 +37,9 @@ export default compose(
         (dispatch, props) => ({
             sync  : (params, data, cb) => dispatch(rest.actions.record.get(params, data, cb)),
             post  : (params, data, cb) => dispatch(rest.actions.records.post(params, data, cb)),
+            put   : (params, data, cb) => dispatch(rest.actions.record.put(params, data, cb)),
             change: (model, value) => dispatch(actions.change(model, value)),
+            reset : model => dispatch(actions.reset(model)),
         })
     ),
 
@@ -49,18 +51,21 @@ export default compose(
                     null,
 
                     (err, data) => {
-                        console.log('record sync', err, data)
                         this.props.change('record.distance', data.data[0].distance);
                         this.props.change('record.time', data.data[0].time);
                         this.props.change('record.date', data.data[0].date);
                     }
                 );
+        },
+        
+        componentWillUnmount() {
+            this.props.reset('record')
         }
     }),
 
     withHandlers({
-        submit: props => () => props.sync(
-            {},
+        submit: props => () => props[props.params.id === 'new' ? 'post' : 'put'](
+            {id: props.params.id},
             {body: JSON.stringify({...props.record, token: localStorage.getItem('token')})},
 
             (err, data)=> {
