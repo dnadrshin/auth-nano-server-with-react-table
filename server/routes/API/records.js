@@ -4,33 +4,34 @@ const
 
 router.get('/', (req, res) => {
     Record.find({userId: res.locals.decoded.user}).exec().then(records => res.json(records));
-})
+});
 
 router.get('/details/:id', (req, res) => {
     Record.find({_id: req.params.id}).exec().then(records => res.json(records));
-})
+});
 
 router.post('/details', (req, res) => {
-        let record = new Record(Object.assign(req.body, {userId: res.locals.decoded.user}));
+    const
+        record = new Record(Object.assign(req.body, {userId: res.locals.decoded.user}));
 
-        record.save((err, data) => {
-            if(err) return res.json(err)
-            console.log('record saved');
-            res.json(data)
-        })
+    record.save((err, data) => {
+        if(err) return res.json(err);
+        console.log('record saved');
+        return res.json(data);
+    })
 })
 
 router.put('/details/:id', (req, res) => {
     Record.findOneAndUpdate({_id: req.params.id}, req.body, (err, doc) => {
-        if(err) return res.json(err)
-        res.json(doc)
+        if(err) return res.json(err);
+        return res.json(doc);
     })
 })
 
 router.delete('/:id', (req, res) => {
     Record.remove({_id: req.params.id}, err => {
-        if(err) return res.json(err)
-        res.json({status: 'ok'})
+        if(err) return res.json(err);
+        return res.json({status: 'ok'});
     })
 })
 

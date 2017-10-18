@@ -6,25 +6,23 @@ const
 
 
 router.post('/login', (req, res, next) => passport.authenticate('local', (err, user, info) => {
-        console.log(err, user, info)
+    res.json({
+        user    : user._id,
+        userName: user.name,
 
-        res.json({
-            user    : user._id,
+        token: jwt.sign({
+            user    : user._id.toString(),
             userName: user.name,
+            exp     : Math.floor(Date.now() / 1000) + (24 * 60 * 60)
+        }, 'tracker_key')});
+})(req, res, next));
 
-            token: jwt.sign({
-                user    : user._id.toString(),
-                userName: user.name,
-                exp     : Math.floor(Date.now() / 1000) + (24 * 60 * 60)
-            }, 'tracker_key')});
-    })(req, res, next));
-
-router.post('/verify', (req, res, next) => {
+router.post('/verify', (req, res) => {
     jwt.verify(req.body.token, 'tracker_key', function(err, decoded) {
         err
             ? res.status(401)
             : res.json({id: decoded.user, name: decoded.userName})
-    })
+    });
 });
 
 router.post('/registration', (req, res, next) => {
@@ -35,7 +33,7 @@ router.post('/registration', (req, res, next) => {
             surName   : req.body.surName,
             email     : req.body.username,
             role      : 'user',
-            created_at: new Date()
+            created_at: new Date(),
         }),
 
         req.body.passwordFirst,
@@ -47,7 +45,7 @@ router.post('/registration', (req, res, next) => {
             }
 
             console.log('user registered!');
-    });
+        });
 });
 
 router.get('/logout', (req, res) => {
