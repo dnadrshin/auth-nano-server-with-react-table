@@ -6,7 +6,7 @@ module.exports = {
         "import"
     ],
     "rules":{
-        "indent": ["error", 4]
+        "indent": ["error", 4],
         "arrow-parens": 0,
         "one-var": 0,
         "jsx-a11y/href-no-hash": "off",
