@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import userReducer from './Users/reducer';
 import recordsReducer from './Records/reducer';
 import {initForm as recordInitForm} from './Records/Edit';
+import {initForm as userInitForm} from './Users/Edit';
 import {initForm as registrationInitForm} from './Registration';
 import {initForm as loginInitForm} from './Login';
 import tableReducer from './Table/reducer';
@@ -12,19 +13,23 @@ import usersRest from './Users/rest';
 import {routerReducer} from 'react-router-redux';
 
 const
-  reducers = {
-    // auth: authReducer,
-    records: recordsReducer,
-    table: tableReducer,
-    users: userReducer,
-    rest: combineReducers({...recordsRest.reducers, ...usersRest.reducers}),
-    routing: routerReducer,
+    reducers = {
+        // auth: authReducer,
+        table: tableReducer,
 
-    ...createForms({
-        record: recordInitForm,
-        registration: registrationInitForm,
-        login : loginInitForm,
-    }),
-  };
+        rest: combineReducers({
+            ...recordsRest.reducers,
+            ...usersRest.reducers,
+        }),
+
+        routing: routerReducer,
+
+        ...createForms({
+            record      : recordInitForm,
+            user        : userInitForm,
+            registration: registrationInitForm,
+            login       : loginInitForm,
+        }),
+    };
 
 export default combineReducers(reducers);
