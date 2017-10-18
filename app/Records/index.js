@@ -9,21 +9,21 @@ import Loading from 'generic/Loading';
 
 const
     Records = props => <div>
-            <Table
-                data={props.records}
-                columns={columns}
-                module="records"
+        <Table
+            data={props.records}
+            columns={columns}
+            module="records"
 
-                entityActions={{
-                    edit  : props.pushURL,
-                    remove: props.removeWithSync,
-                }}
-            />
+            entityActions={{
+                edit  : props.pushURL,
+                remove: props.removeWithSync,
+            }}
+        />
 
-            {props.isLoading && <Loading />}
+        {props.isLoading && <Loading />}
 
-            <button onClick={props.pushURL('new')}>New Record</button>
-        </div>;
+        <button onClick={props.pushURL('new')}>New Record</button>
+    </div>;
 
 export default compose(
     connect(
@@ -35,8 +35,8 @@ export default compose(
         dispatch => ({
             sync   : (data, cb) => dispatch(rest.actions.records.sync(data, cb)),
             pushURL: id => () => dispatch(push(`/records/edit/${id}`)),
-            dispatch
-        })
+            dispatch,
+        }),
     ),
 
     withHandlers({
@@ -52,10 +52,10 @@ export default compose(
                 null,
 
                 (err, data) => {
-                    if(err)
-                        console.log(err)
-                }
+                    if (err)
+                        console.log(err);
+                },
             );
-        }
-    })
+        },
+    }),
 )(Records);

@@ -7,4 +7,4 @@ const
         TABLE_TOGGLE_SORTING: null,
     });
 
-export default { types, toggleSorting };
+export default {types, toggleSorting};

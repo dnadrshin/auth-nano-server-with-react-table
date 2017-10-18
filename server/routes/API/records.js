@@ -18,8 +18,8 @@ router.post('/details', (req, res) => {
         if(err) return res.json(err);
         console.log('record saved');
         return res.json(data);
-    })
-})
+    });
+});
 
 router.put('/details/:id', (req, res) => {
     Record.findOneAndUpdate({_id: req.params.id}, req.body, (err, doc) => {
@@ -32,7 +32,7 @@ router.delete('/:id', (req, res) => {
     Record.remove({_id: req.params.id}, err => {
         if(err) return res.json(err);
         return res.json({status: 'ok'});
-    })
-})
+    });
+});
 
 module.exports = router;
