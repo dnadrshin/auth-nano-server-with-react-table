@@ -19,10 +19,9 @@ import {syncHistoryWithStore, routerMiddleware} from 'react-router-redux';
 const logger = createLogger({});
 
 const
-    store = createStore(reducer, applyMiddleware(thunk, logger, routerMiddleware(browserHistory))),
-    history = syncHistoryWithStore(browserHistory, store);
+    store = createStore(reducer, applyMiddleware(thunk, logger, routerMiddleware(browserHistory)));
 
-    console.log(store.getState())
+console.log(store.getState());
 
 ReactDOM.render(
     <Provider store={store}>

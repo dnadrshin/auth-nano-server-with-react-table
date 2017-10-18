@@ -25,8 +25,8 @@ router.put('/details/:id', (req, res) => {
     Record.findOneAndUpdate({_id: req.params.id}, req.body, (err, doc) => {
         if(err) return res.json(err);
         return res.json(doc);
-    })
-})
+    });
+});
 
 router.delete('/:id', (req, res) => {
     Record.remove({_id: req.params.id}, err => {

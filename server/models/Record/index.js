@@ -3,12 +3,12 @@ const
     Schema = mongoose.Schema;
 
 const Record = new Schema({
-    date: Date,
-    userId: String,
-    distance: Number,
-    time: String,
+    date      : Date,
+    userId    : String,
+    distance  : Number,
+    time      : String,
     created_at: Date,
-    last: Date,
+    last      : Date,
 });
 
 module.exports = mongoose.model('Record', Record);
