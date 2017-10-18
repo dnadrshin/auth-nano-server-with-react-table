@@ -1,10 +1,10 @@
 import React from 'react';
+import {push} from 'react-router-redux';
+import {connect} from 'react-redux';
+import {compose, lifecycle, withHandlers} from 'recompose';
 import Table from 'Table';
-import { compose, lifecycle, withHandlers } from 'recompose';
-import { connect } from 'react-redux';
 import columns from './columns';
 import rest from './rest';
-import {push} from 'react-router-redux';
 import Loading from 'generic/Loading';
 
 const
