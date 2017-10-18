@@ -9,12 +9,13 @@ router.post('/login', (req, res, next) => passport.authenticate('local', (err, u
         console.log(err, user, info)
 
         res.json({
-            user: user._id,
+            user    : user._id,
             userName: user.name,
 
             token: jwt.sign({
-                user: user._id.toString(),
-                exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60)
+                user    : user._id.toString(),
+                userName: user.name,
+                exp     : Math.floor(Date.now() / 1000) + (24 * 60 * 60)
             }, 'tracker_key')});
     })(req, res, next));
 
@@ -22,18 +23,18 @@ router.post('/verify', (req, res, next) => {
     jwt.verify(req.body.token, 'tracker_key', function(err, decoded) {
         err
             ? res.status(401)
-            : res.json({token: 'valid'})
+            : res.json({id: decoded.user, name: decoded.userName})
     })
 });
 
 router.post('/registration', (req, res, next) => {
     User.register(
         new User({
-            username: req.body.username,
-            firstName: req.body.firstName,
-            surName: req.body.surName,
-            email: req.body.username,
-            role: 'user',
+            username  : req.body.username,
+            firstName : req.body.firstName,
+            surName   : req.body.surName,
+            email     : req.body.username,
+            role      : 'user',
             created_at: new Date()
         }),
 
