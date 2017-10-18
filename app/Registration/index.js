@@ -3,7 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Control, Form, Field } from 'react-redux-form';
 import { compose, withHandlers } from 'recompose';
-import rest from '../Rest'
+import {push} from 'react-router-redux';
+import rest from './rest'
 
 const
     initForm = {username: '', firstName: '', surName: '', passwordFirst: '', passwordSecond: ''},
@@ -27,7 +28,8 @@ export default compose(
         }),
 
         dispatch => ({
-            post: (params, data, cb) => dispatch(rest('user').actions.user.post(params, data, cb)),
+            post   : (params, data, cb) => dispatch(rest('registration').actions.registration.post(params, data, cb)),
+            pushURL: url => dispatch(push(url)),
         })
     ),
 
@@ -37,7 +39,11 @@ export default compose(
             {body: JSON.stringify(props.registration)},
 
             (err, data)=> {
+                // todo: show err message
+                if(err) console.log(err, data);
+
                 console.log(err, data)
+                props.pushURL('/records');
         })
     })
 )(RegistartionForm);

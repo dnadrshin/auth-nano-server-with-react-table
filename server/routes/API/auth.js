@@ -6,6 +6,9 @@ const
 
 
 router.post('/login', (req, res, next) => passport.authenticate('local', (err, user, info) => {
+    if (err) return res.status(401);
+    if (!user) return res.status(401);
+
     res.json({
         user    : user._id,
         userName: user.name,
@@ -18,7 +21,7 @@ router.post('/login', (req, res, next) => passport.authenticate('local', (err, u
 })(req, res, next));
 
 router.post('/verify', (req, res) => {
-    jwt.verify(req.body.token, 'tracker_key', function(err, decoded) {
+    jwt.verify(req.body.token, 'tracker_key', (err, decoded) => {
         err
             ? res.status(401)
             : res.json({id: decoded.user, name: decoded.userName})
@@ -38,13 +41,13 @@ router.post('/registration', (req, res, next) => {
 
         req.body.passwordFirst,
 
-        err => {
+        (err, user) => {
             if (err) {
                 console.log('error while user register!', err);
-                return next(err);
+                return res.status(401);
             }
 
-            console.log('user registered!');
+            return res.json(user);
         });
 });
 

@@ -5,6 +5,17 @@ module.exports = {
         "jsx-a11y",
         "import"
     ],
+    "globals": {},
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "modules": true,
+            "jsx": true
+        }
+    },
     "rules":{
         "indent": ["error", 4],
         "arrow-parens": 0,

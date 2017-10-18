@@ -41,8 +41,9 @@ export default compose(
 
     withHandlers({
         removeWithSync: props => id => () => props.dispatch(
-            rest.actions.deleteRecord.delete({id}, null, (err, data) => {
-                props.sync();
+            rest.actions.deleteUser.delete({id}, null, (err, data) => {
+                if(err) return console.log(err);
+                return props.sync();
             })),
     }),
 
