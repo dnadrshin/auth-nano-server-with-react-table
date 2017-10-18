@@ -34,7 +34,6 @@ export default compose(
 
             (err, data)=> {
                 localStorage.setItem('token', data.token);
-                localStorage.setItem('userName', data.userName);
                 props.afterLogin();
         })
     }),
