@@ -8,6 +8,7 @@ import {initForm as loginInitForm} from './Login';
 import tableReducer from './Table/reducer';
 import {createForms, combineForms} from 'react-redux-form';
 import recordsRest from './Records/rest';
+import usersRest from './Users/rest';
 import {routerReducer} from 'react-router-redux';
 
 const
@@ -16,7 +17,7 @@ const
     records: recordsReducer,
     table: tableReducer,
     users: userReducer,
-    rest: combineReducers(recordsRest.reducers),
+    rest: combineReducers({...recordsRest.reducers, ...usersRest.reducers}),
     routing: routerReducer,
 
     ...createForms({

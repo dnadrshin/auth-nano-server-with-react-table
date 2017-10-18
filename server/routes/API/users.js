@@ -4,7 +4,7 @@ const
     router = require('express').Router();
 
 router.get('/', (req, res) => {
-    res.json({test:1});
+    User.find({}).exec().then(users => res.json(users));
 })
 
 router.get('/:id', (req, res) => {

@@ -1,7 +1,6 @@
 const
     router = require('express').Router(),
-    Record = require('../../models/Record'),
-    jwt = require('jsonwebtoken');
+    Record = require('../../models/Record');
 
 router.get('/', (req, res) => {
     Record.find({userId: res.locals.decoded.user}).exec().then(records => res.json(records));
