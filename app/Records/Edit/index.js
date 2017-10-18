@@ -3,14 +3,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Control, Form, Field } from 'react-redux-form';
 import { compose, withHandlers, lifecycle } from 'recompose';
-import SelectField from '../../generic/SelectField';
-import DateField from '../../generic/DateField';
+import SelectField from 'generic/SelectField';
+import DateField from 'generic/DateField';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import rest from '../rest';
 import { track, actions } from 'react-redux-form';
 import {push} from 'react-router-redux';
+import Loading from 'generic/Loading'
 
 const
     initForm = {date: moment(), distance: '', time: ''},

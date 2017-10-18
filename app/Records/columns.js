@@ -8,16 +8,16 @@ export default [
 
     {
         title: 'Distance (Metres)',
-        name: 'distance'
+        name: 'distance',
     },
 
     {
         title: 'Time',
-        name: 'time'
+        name: 'transformed.timeInFormat',
     },
     
     {
         title: 'Average speed',
-        name: 'avgSpeed'
+        name: 'transformed.avrSpeed',
     }
-]
+];

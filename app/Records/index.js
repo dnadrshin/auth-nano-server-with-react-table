@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from '../Table';
+import Table from 'Table';
 import { compose, lifecycle, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import columns from './columns';
@@ -29,7 +29,7 @@ export default compose(
     connect(
         state => ({
             isLoading: state.rest.records.loading,
-            records  : state.rest.records.data.data,
+            records  : state.rest.records.data,
         }),
 
         dispatch => ({
@@ -52,7 +52,8 @@ export default compose(
                 null,
 
                 (err, data) => {
-                    console.log('records sync', err, data)
+                    if(err)
+                        console.log(err)
                 }
             );
         }
