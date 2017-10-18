@@ -2,10 +2,10 @@ import React from 'react';
 import {push} from 'react-router-redux';
 import {connect} from 'react-redux';
 import {compose, lifecycle, withHandlers} from 'recompose';
+import Loading from 'generic/Loading';
 import Table from 'Table';
 import columns from './columns';
 import rest from './rest';
-import Loading from 'generic/Loading';
 
 const
     Records = props => <div>
@@ -52,8 +52,7 @@ export default compose(
                 null,
 
                 (err, data) => {
-                    if (err)
-                        console.log(err);
+                    if (err) console.log(err);
                 },
             );
         },

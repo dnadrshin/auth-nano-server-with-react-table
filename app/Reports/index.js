@@ -31,8 +31,8 @@ export default compose(
         dispatch => ({
             sync   : (data, cb) => dispatch(rest.actions.records.sync(data, cb)),
             pushURL: id => () => dispatch(push(`/records/edit/${id}`)),
-            dispatch
-        })
+            dispatch,
+        }),
     ),
 
     withHandlers({
@@ -49,8 +49,8 @@ export default compose(
 
                 (err, data) => {
                     console.log('records sync', err, data)
-                }
+                },
             );
-        }
-    })
+        },
+    }),
 )(Records);

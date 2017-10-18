@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 
 
 router.get('/details/:id', (req, res) => {
-    User.find({ _id: req.params.id }).exec().then(records => res.json(records));
+    User.find({_id: req.params.id}).exec().then(records => res.json(records));
 });
 
 router.post('/details', (req, res) => {
@@ -23,16 +23,16 @@ router.post('/details', (req, res) => {
 });
 
 router.put('/details/:id', (req, res) => {
-    User.findOneAndUpdate({ _id: req.params.id }, req.body, (err, doc) => {
+    User.findOneAndUpdate({_id: req.params.id}, req.body, (err, doc) => {
         if (err) return res.json(err);
         return res.json(doc);
     });
 });
 
 router.delete('/:id', (req, res) => {
-    User.remove({ _id: req.params.id }, err => {
+    User.remove({_id: req.params.id}, err => {
         if (err) return res.json(err);
-        return res.json({ status: 'ok' })
+        return res.json({status: 'ok'});
     });
 });
 

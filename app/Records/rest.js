@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import "isomorphic-fetch";
-import reduxApi, {transformers} from "redux-api";
-import adapterFetch from "redux-api/lib/adapters/fetch";
-import {transformJSONRequest} from '../generic/helpers';
+import 'isomorphic-fetch';
 import moment from 'moment';
+import reduxApi, {transformers} from 'redux-api';
+import adapterFetch from 'redux-api/lib/adapters/fetch';
+import {transformJSONRequest} from '../generic/helpers';
 
 const
     recordModel = data => _.extend(data, {transformed: {
@@ -16,7 +16,7 @@ const
             "token": localStorage.getItem('token'),
             "Accept": "application/json",
             "Content-Type": "application/json",
-        }
+        },
     };
 
 export default reduxApi({
@@ -24,19 +24,19 @@ export default reduxApi({
         crud       : true,
         url        : '/api/records',
         transformer: (resp, prevData, options) => transformJSONRequest(resp, data => recordModel(data), options),
-        options
+        options,
     },
 
     record: {
         crud: true,
         url : '/api/records/details/:id',
-        options
+        options,
     },
 
-    deleteRecord:{
+    deleteRecord: {
         crud   : true,
         url    : '/api/records/:id',
         virtual: true,
-        options
+        options,
     },
-}).use("fetch", adapterFetch(fetch));
+}).use('fetch', adapterFetch(fetch));

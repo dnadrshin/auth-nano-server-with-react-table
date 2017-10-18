@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import Icon from './Icon';
-import {convertFieldValue as converter} from 'generic/helpers'
+import {convertFieldValue as converter} from 'generic/helpers';
 
 const
     Row = ({data, columns, actions}) => <tr>
