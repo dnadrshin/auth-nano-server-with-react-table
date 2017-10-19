@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
-import Icon from './Icon';
 import {convertFieldValue as converter} from 'generic/helpers';
+import Icon from './Icon';
 
 const
     Row = ({data, columns, actions}) => <tr>
-        {columns.map((column, i) => <td key={`${data._id}-col-${i}`}>
+        {columns.map((column) => <td key={`${data._id}-col-${column.name}`}>
             {!column.isServiceField
                 ? converter(_.get(data, column.name), column.type)
 

@@ -8,19 +8,19 @@ import {push} from 'react-router-redux';
 
 const
     Records = props => <div>
-            <Table
-                data={props.records}
-                columns={columns}
-                module="records"
+        <Table
+            data={props.records}
+            columns={columns}
+            module="records"
 
-                entityActions={{
-                    edit  : props.pushURL,
-                    remove: props.removeWithSync,
-                }}
-            />
+            entityActions={{
+                edit  : props.pushURL,
+                remove: props.removeWithSync,
+            }}
+        />
 
-            <button onClick={props.pushURL('new')}>New Record</button>
-        </div>;
+        <button onClick={props.pushURL('new')}>New Record</button>
+    </div>;
 
 export default compose(
     connect(

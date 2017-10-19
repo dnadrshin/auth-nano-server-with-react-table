@@ -17,7 +17,7 @@ const
                 {extendColumns(columns, entityActions).map((column, i) =>
                 <th
                     key={`${module}-header-${i}`}
-                    onClick={column.isSorted ? () => toggleSorting(module, column.name): () => {console.log('not sort')}}
+                    onClick={column.isSorted ? () => toggleSorting(module, column.name) : () => {console.log('not sort')}}
                 >
                     {column.title}
 
@@ -35,7 +35,7 @@ const
             </tr>
 
             {data
-                ? data.map((row, i) => <Row
+                ? data.map((row) => <Row
                     data={row}
                     columns={extendColumns(columns)}
                     key={row._id}
@@ -54,5 +54,5 @@ export default connect(
 
     ({
         toggleSorting: actions.toggleSorting,
-    })
+    }),
 )(Table);

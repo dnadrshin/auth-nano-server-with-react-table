@@ -15,7 +15,7 @@ router.post('/details', (req, res) => {
         record = new Record(Object.assign(req.body, {userId: res.locals.decoded.user}));
 
     record.save((err, data) => {
-        if(err) return res.json(err);
+        if (err) return res.json(err);
         console.log('record saved');
         return res.json(data);
     });
@@ -23,14 +23,14 @@ router.post('/details', (req, res) => {
 
 router.put('/details/:id', (req, res) => {
     Record.findOneAndUpdate({_id: req.params.id}, req.body, (err, doc) => {
-        if(err) return res.json(err);
+        if (err) return res.json(err);
         return res.json(doc);
     });
 });
 
 router.delete('/:id', (req, res) => {
     Record.remove({_id: req.params.id}, err => {
-        if(err) return res.json(err);
+        if (err) return res.json(err);
         return res.json({status: 'ok'});
     });
 });

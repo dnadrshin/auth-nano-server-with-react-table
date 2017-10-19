@@ -14,9 +14,10 @@ app.use(express.static('public'));
 // app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(session({ keys: ['secretkey1', 'secretkey2', '...'] }));
+app.use(bodyParser.urlencoded({extended: false}));
 
+// todo: del unused middleware
+app.use(cookieParser());
+app.use(session({keys: ['secretkey1', 'secretkey2', '...']}));
 
 module.exports = app;

@@ -1,16 +1,16 @@
 export default [
     {
         title: 'First Name',
-        name: 'firstName'
+        name : 'firstName',
     },
 
     {
         title: 'Last Name',
-        name: 'lastName'
+        name : 'lastName',
     },
 
     {
         title: 'Email',
-        name: 'email'
-    }
-]
+        name : 'email',
+    },
+];

@@ -1,11 +1,11 @@
 import React from 'react';
+import {push} from 'react-router-redux';
+import { connect } from 'react-redux';
+import Loading from 'generic/Loading';
 import Table from 'Table';
 import { compose, lifecycle, withHandlers } from 'recompose';
-import { connect } from 'react-redux';
 import columns from './columns';
 import rest from './rest';
-import {push} from 'react-router-redux';
-import Loading from 'generic/Loading';
 
 const
     Users = props => <div>
@@ -35,8 +35,8 @@ export default compose(
         dispatch => ({
             sync   : (data, cb) => dispatch(rest.actions.users.sync(data, cb)),
             pushURL: id => () => dispatch(push(`/users/edit/${id}`)),
-            dispatch
-        })
+            dispatch,
+        }),
     ),
 
     withHandlers({
@@ -53,8 +53,7 @@ export default compose(
                 null,
 
                 (err, data) => {
-                    if(err)
-                        console.log(err)
+                    if(err) console.log(err);
                 }
             );
         }

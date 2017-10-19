@@ -1,15 +1,13 @@
-import _ from 'lodash';
 import 'isomorphic-fetch';
-import reduxApi, {transformers} from 'redux-api';
+import reduxApi from 'redux-api';
 import adapterFetch from 'redux-api/lib/adapters/fetch';
 import {transformGetRequest, transformJSONRequest} from 'generic/helpers';
-import moment from 'moment';
 
 const
     options = {
         headers: {
-            'token': localStorage.getItem('token'),
-            'Accept': 'application/json',
+            'token'       : localStorage.getItem('token'),
+            'Accept'      : 'application/json',
             'Content-Type': 'application/json',
         },
     };
@@ -35,4 +33,4 @@ export default reduxApi({
         virtual: true,
         options,
     },
-}).use("fetch", adapterFetch(fetch));
+}).use('fetch', adapterFetch(fetch));

@@ -4,6 +4,7 @@ const
 
 module.exports = app => {
     // Configure passport middleware
+    // todo: del becose unused - token auth
     app.use(passport.initialize());
     app.use(passport.session());
 

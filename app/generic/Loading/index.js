@@ -22,8 +22,7 @@ const
     },
 
     Loading = props => <div style={divStyle}>
-        <img style={imgStyle} src="public/img/loading.gif" />
+        <img style={imgStyle} src="public/img/loading.gif" alt="loading..." />
     </div>;
-
 
 export default Loading;

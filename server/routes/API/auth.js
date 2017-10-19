@@ -21,14 +21,13 @@ router.post('/login', (req, res, next) => passport.authenticate('local', (err, u
 })(req, res, next));
 
 router.post('/verify', (req, res) => {
-    jwt.verify(req.body.token, 'tracker_key', (err, decoded) => {
-        err
+    jwt.verify(req.body.token, 'tracker_key', (err, decoded) => err
             ? res.status(401)
-            : res.json({id: decoded.user, name: decoded.userName})
-    });
+            : res.json({id: decoded.user, name: decoded.userName});
+    );
 });
 
-router.post('/registration', (req, res, next) => {
+router.post('/registration', (req, res) => {
     User.register(
         new User({
             username  : req.body.username,

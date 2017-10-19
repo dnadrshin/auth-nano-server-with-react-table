@@ -6,6 +6,6 @@ const
         style={{cursor: 'pointer'}}
         onClick={action}>
             {type}
-        </i>
+        </i>;
 
 export default Icon;

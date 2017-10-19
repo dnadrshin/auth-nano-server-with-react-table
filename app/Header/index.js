@@ -1,25 +1,24 @@
 // @flow
 import React from 'react';
-import { connect } from 'react-redux';
-import { Control, Form, Field } from 'react-redux-form';
-import { compose, withHandlers, lifecycle, withState } from 'recompose';
+import {push} from 'react-router-redux';
+import {connect} from 'react-redux';
+import {compose, withHandlers, lifecycle, withState} from 'recompose';
 import {Link} from 'react-router';
 import Login from '../Login';
 import rest from '../Login/rest';
-import {push} from 'react-router-redux';
 
 const
     Header = props => <x-section>
-        <Link to='/records'>Records</Link>
-        <Link to='/users'>Users</Link>
-        <Link to='/'>Main</Link>
+        <Link to="/records">Records</Link>
+        <Link to="/users">Users</Link>
+        <Link to="/">Main</Link>
 
         {props.hasToken
             ? <button onClick={props.logout}>Logout</button>
 
             : <x-section>
                 <Login afterLogin={props.afterLogin} />
-                <Link to='/registration'>Registration</Link>
+                <Link to="/registration">Registration</Link>
             </x-section>}
 
         {(props.hasToken || props.location.pathname === '/registration') && props.children}
@@ -28,13 +27,13 @@ const
 export default compose(
     connect(
         state => ({
-            login : state.login,
+            login: state.login,
         }),
 
         dispatch => ({
-            post: (params, data, cb) => dispatch(rest('verify').actions.verify.post(params, data, cb)),
+            post   : (params, data, cb) => dispatch(rest('verify').actions.verify.post(params, data, cb)),
             pushURL: url => dispatch(push(url)),
-        })
+        }),
     ),
 
     withState('hasToken', 'toggleHasToken', false),

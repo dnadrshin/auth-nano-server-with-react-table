@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import 'isomorphic-fetch';
 import moment from 'moment';
-import reduxApi, {transformers} from 'redux-api';
+import reduxApi from 'redux-api';
 import adapterFetch from 'redux-api/lib/adapters/fetch';
 import {transformJSONRequest} from '../generic/helpers';
 
@@ -13,9 +13,9 @@ const
 
     options = {
         headers: {
-            "token": localStorage.getItem('token'),
-            "Accept": "application/json",
-            "Content-Type": "application/json",
+            'token'       : localStorage.getItem('token'),
+            'Accept'      : 'application/json',
+            'Content-Type': 'application/json',
         },
     };
 

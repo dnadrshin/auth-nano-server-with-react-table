@@ -1,46 +1,47 @@
-var path = require('path');
-var webpack = require('webpack');
+const
+    path = require('path'),
+    webpack = require('webpack');
 
 module.exports = {
-  // or devtool: 'eval' to debug issues with compiled output:
-  devtool: 'cheap-module-eval-source-map',
-  entry: [
-    'webpack-hot-middleware/client',
-    './app/index'
-  ],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/dist/'
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ],
-  module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      loader: 'babel-loader',
-      exclude: [/node_modules/],
-      query: {
-        presets: ['es2015', 'react', 'stage-0', 'stage-1'],
-      },
-    },{
-      test: /\.css$/,
-      loader:'style-loader!css-loader'
-    }]
-  },
-  resolve: {
-    extensions: ['.json', '.js'],
+    // or devtool: 'eval' to debug issues with compiled output:
+    devtool: 'cheap-module-eval-source-map',
 
-    modules: [
-      path.resolve(__dirname, './', 'app'),
-      path.resolve(__dirname, './', 'node_modules'),
+    entry: [
+        'webpack-hot-middleware/client',
+        './app/index',
     ],
-  },
+
+    output: {
+        path      : path.join(__dirname, 'dist'),
+        filename  : 'bundle.js',
+        publicPath: '/dist/',
+    },
+
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+    ],
+
+    module: {
+        loaders: [{
+            test   : /\.jsx?$/,
+            loader : 'babel-loader',
+            exclude: [/node_modules/],
+
+            query: {
+                presets: ['es2015', 'react', 'stage-0', 'stage-1'],
+            },
+        }, {
+            test  : /\.css$/,
+            loader: 'style-loader!css-loader',
+        }],
+    },
+    resolve: {
+        extensions: ['.json', '.js'],
+
+        modules: [
+            path.resolve(__dirname, './', 'app'),
+            path.resolve(__dirname, './', 'node_modules'),
+        ],
+    },
 
 };
-
-loaders:[{
-  test:'/\.css$/',loader:'style!css!'
-}]
-
