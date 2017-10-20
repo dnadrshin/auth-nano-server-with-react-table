@@ -4,6 +4,7 @@ const
     webpack = require('webpack'),
     config = require('./webpack.js'),
     mongoose = require('mongoose'),
+    logger = require('morgan'),
     bodyParser = require('body-parser'),
     session = require('cookie-session'),
     cookieParser = require('cookie-parser'),
@@ -14,8 +15,8 @@ const
     passportInit = require('./server/passport');
 
 app.set('title', 'Tracker');
+app.use(logger('dev'));
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(session({keys: ['tracker']}));
@@ -28,7 +29,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.use('/public', express.static('public'));
-
 app.use('/API', apiRoutes);
 
 app.get('*', (req, res) => {
@@ -38,7 +38,7 @@ app.get('*', (req, res) => {
 passportInit(app);
 
 // Connect mongoose
-mongoose.connect(settings.mongodbUrl, err => console.log(err ? 'Could not connect to mongodb!' : 'MongoDB connection established'));
+mongoose.connect(settings.mongodbUrl, {useMongoClient: true}, err => console.log(err ? 'Could not connect to mongodb!' : 'MongoDB connection established'));
 mongoose.set('debug', true);
 
 app.listen(settings.port, (err) => {
