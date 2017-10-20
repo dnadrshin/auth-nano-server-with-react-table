@@ -5,8 +5,9 @@ import {initForm as recordInitForm} from './Records/Edit';
 import {initForm as userInitForm} from './Users/Edit';
 import {initForm as registrationInitForm} from './Registration';
 import {initForm as loginInitForm} from './Login';
-import tableReducer from './Table/reducer';
+import tableReducer from './generic/Table/reducer';
 import recordsRest from './Records/rest';
+import reportsRest from './Reports/rest';
 import usersRest from './Users/rest';
 
 const
@@ -16,6 +17,7 @@ const
         rest: combineReducers({
             ...recordsRest.reducers,
             ...usersRest.reducers,
+            ...reportsRest.reducers,
         }),
 
         routing: routerReducer,

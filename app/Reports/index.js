@@ -1,21 +1,21 @@
 import React from 'react';
-import Table from '../Table';
+import Table from 'generic/Table';
 import { compose, lifecycle, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import columns from './columns';
-import rest from '../Records/rest';
+import rest from './rest';
 import {push} from 'react-router-redux';
 
 const
-    Records = props => <div>
+    Reports = props => <div>
         <Table
-            data={props.records}
+            data={props.report}
             columns={columns}
-            module="records"
+            module="report"
 
             entityActions={{
-                edit  : props.pushURL,
-                remove: props.removeWithSync,
+                edit  : () => {},
+                remove: () => {},
             }}
         />
 
@@ -25,32 +25,25 @@ const
 export default compose(
     connect(
         state => ({
-            records: state.rest.records.data.data,
+            report: _.get(state, 'rest.report.data', []),
         }),
 
         dispatch => ({
-            sync   : (data, cb) => dispatch(rest.actions.records.sync(data, cb)),
-            pushURL: id => () => dispatch(push(`/records/edit/${id}`)),
+            sync   : (data, cb) => dispatch(rest.actions.report.sync(data, cb)),
+            pushURL: id => () => dispatch(push(`/reports/edit/${id}`)),
             dispatch,
         }),
     ),
 
-    withHandlers({
-        removeWithSync: props => id => () => props.dispatch(
-            rest.actions.deleteRecord.delete({id}, null, (err, data) => {
-                props.sync();
-            })),
-    }),
-
     lifecycle({
         componentDidMount() {
             this.props.sync(
-                null,
+                {id: 1},
 
                 (err, data) => {
-                    console.log('records sync', err, data)
+                    console.log('reports sync', err, data)
                 },
             );
         },
     }),
-)(Records);
+)(Reports);
