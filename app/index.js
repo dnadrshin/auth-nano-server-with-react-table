@@ -12,7 +12,7 @@ import UsersEdit from './Users/Edit';
 import Records from './Records';
 import Reports from './Reports';
 import RecordsEdit from './Records/Edit';
-import Header from './Header';
+import App from './App';
 import Registration from './Registration';
 
 const
@@ -24,7 +24,7 @@ console.log(store.getState());
 ReactDOM.render(
     <Provider store={store}>
         <Router history={syncHistoryWithStore(browserHistory, store)}>
-            <Route path="/" component={Header}>
+            <Route path="/" component={App}>
                 <Route path="/records" component={Records} />
                 <Route path="/records/edit/:id" component={RecordsEdit} />
                 <Route path="/reports" component={Reports} />

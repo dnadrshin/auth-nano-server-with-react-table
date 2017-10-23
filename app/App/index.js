@@ -4,31 +4,26 @@ import {push} from 'react-router-redux';
 import {connect} from 'react-redux';
 import {compose, withHandlers, lifecycle, withState} from 'recompose';
 import {Link} from 'react-router';
-import Login from '../Login';
-import rest from '../Login/rest';
+import classNames from 'classnames';
+import rest from 'generic/Login/rest';
+import Header from './Header';
+import styles from './assets/component.css';
 
 const
-    Header = props => <x-section>
-        <Link to="/records">Records</Link>
-        <Link to="/users">Users</Link>
-        <Link to="/">Main</Link>
+    App = props => <x-section class={classNames(styles.app)}>
+       <Header
+            hasToken={props.hasToken}
+            toggleHasToken={props.toggleHasToken}
+        />
 
-        {props.hasToken
-            ? <button onClick={props.logout}>Logout</button>
-
-            : <x-section>
-                <Login afterLogin={props.afterLogin} />
-                <Link to="/registration">Registration</Link>
-            </x-section>}
-
-        {(props.hasToken || props.location.pathname === '/registration') && props.children}
+        <x-content>
+            {(props.hasToken || props.location.pathname === '/registration') && props.children}
+        </x-content>
     </x-section>;
 
 export default compose(
     connect(
-        state => ({
-            login: state.login,
-        }),
+        null,
 
         dispatch => ({
             post   : (params, data, cb) => dispatch(rest('verify').actions.verify.post(params, data, cb)),
@@ -57,6 +52,7 @@ export default compose(
 
             (err, data)=> {
                 console.log(err, data);
+
                 err
                     ? props.logout()
                     : props.toggleHasToken(true)
@@ -69,4 +65,4 @@ export default compose(
                 this.props.checkToken();
         }
     })
-)(Header);
+)(App);
