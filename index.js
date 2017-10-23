@@ -40,15 +40,13 @@ app.get('*', (req, res) => {
 
 passportInit(app);
 
-console.log(prodDB)
+mongoose.connect(
+    prodDB ? prodDB : settings.mongodbUrl,
+    {useMongoClient: true},
+    err => console.log(err ? 'Could not connect to mongodb!' : 'MongoDB connection established')
+);
 
-// mongoose.connect(
-//     prodDB ? prodDB : settings.mongodbUrl,
-//     {useMongoClient: true},
-//     err => console.log(err ? 'Could not connect to mongodb!' : 'MongoDB connection established'),
-// );
-
-// mongoose.set('debug', true);
+mongoose.set('debug', true);
 
 app.listen(settings.port, (err) => {
     if (err) return console.log(err);

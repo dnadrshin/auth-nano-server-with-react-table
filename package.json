@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "tracker",
   "main": "index.js",
+  "version": "8.7.0",
   "scripts": {
     "build": "webpack --display-error-details --config webpack.js",
     "go": "webpack --display-error-details --config webpack.js && node index.js",
