@@ -47,7 +47,15 @@ router.post('/registration', (req, res) => {
                 return res.status(401);
             }
 
-            return res.json(user);
+            return res.json({
+                user    : user._id,
+                userName: user.username,
+        
+                token: jwt.sign({
+                    user    : user._id.toString(),
+                    userName: user.username,
+                    exp     : Math.floor(Date.now() / 1000) + (24 * 60 * 60)
+                }, 'tracker_key')});
         });
 });
 

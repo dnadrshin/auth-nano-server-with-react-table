@@ -17,7 +17,10 @@ const
         />
 
         <x-content>
-            {(props.hasToken || props.location.pathname === '/registration') && props.children}
+            {(props.hasToken || props.location.pathname === '/registration') 
+                && React.cloneElement(props.children, {
+                    toggleHasToken: props.toggleHasToken
+            })}
         </x-content>
     </x-section>;
 
@@ -34,11 +37,6 @@ export default compose(
     withState('hasToken', 'toggleHasToken', false),
 
     withHandlers({
-        afterLogin: props => () => {
-            props.toggleHasToken(true);
-            props.pushURL('/records');
-        },
-
         logout: props => () => {
             localStorage.removeItem('token');
             props.toggleHasToken(false);

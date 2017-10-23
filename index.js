@@ -41,7 +41,7 @@ app.get('*', (req, res) => {
 passportInit(app);
 
 mongoose.connect(
-    prodDB ? prodDB : settings.mongodbUrl,
+    prodDB || settings.mongodbUrl,
     {useMongoClient: true},
     err => console.log(err ? 'Could not connect to mongodb!' : 'MongoDB connection established')
 );

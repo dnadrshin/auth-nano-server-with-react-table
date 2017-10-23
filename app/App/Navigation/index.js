@@ -8,7 +8,6 @@ const
         <Link to="/reports">Reports</Link>
         <Link to="/records">Records</Link>
         <Link to="/users">Users</Link>
-        <Link to="/">Main</Link>
     </x-section>;
 
 export default Navigation;

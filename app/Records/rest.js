@@ -11,13 +11,13 @@ const
         timeInFormat: moment().startOf('day').seconds(_.get(data, 'time', 1)).format('H:mm:ss'),
     }}),
 
-    options = {
+    options = () => ({
         headers: {
             'token'       : localStorage.getItem('token'),
             'Accept'      : 'application/json',
             'Content-Type': 'application/json',
         },
-    };
+    });
 
 export default reduxApi({
     records: {

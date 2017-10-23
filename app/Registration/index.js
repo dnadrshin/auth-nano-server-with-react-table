@@ -47,6 +47,10 @@ export default compose(
                 if(err) console.log(err, data);
 
                 console.log(err, data)
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('id', data.user);
+                localStorage.setItem('name', data.userName);
+                props.toggleHasToken(true);
                 props.pushURL('/records');
         })
     })
