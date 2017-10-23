@@ -1,5 +1,8 @@
 module.exports = {
     "extends": "airbnb",
+    "env": {
+        "jest": true
+    },
     "plugins": [
         "react",
         "jsx-a11y",
@@ -8,6 +11,7 @@ module.exports = {
     "globals": {
         "localStorage": true,
         "fetch": true,
+        "document": true,
     },
     "parserOptions": {
         "ecmaVersion": 6,
@@ -20,6 +24,8 @@ module.exports = {
         }
     },
     "rules": {
+        "no-confusing-arrow": 0,
+        "no-mixed-operators": 0,
         "global-require": 0,
         "quote-props": 0,
         "no-underscore-dangle": 0,
