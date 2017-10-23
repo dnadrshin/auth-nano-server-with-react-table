@@ -14,6 +14,8 @@ const
     settings = require('./server/settings'),
     passportInit = require('./server/passport');
 
+global.__base = path.join(__dirname, '/');
+
 app.set('title', 'Tracker');
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -38,11 +40,15 @@ app.get('*', (req, res) => {
 passportInit(app);
 
 // Connect mongoose
-mongoose.connect(settings.mongodbUrl, {useMongoClient: true}, err => console.log(err ? 'Could not connect to mongodb!' : 'MongoDB connection established'));
+mongoose.connect(
+    NPM_CONFIG_PRODUCTION ? NODE_MODULES_DB : settings.mongodbUrl,
+    {useMongoClient: true},
+    err => console.log(err ? 'Could not connect to mongodb!' : 'MongoDB connection established'),
+);
+
 mongoose.set('debug', true);
 
 app.listen(settings.port, (err) => {
     if (err) return console.log(err);
-
     return console.log(`Listening at http://localhost:${settings.port}`);
 });
