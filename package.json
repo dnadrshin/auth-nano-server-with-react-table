@@ -2,7 +2,11 @@
   "name": "tracker",
   "description": "tracker",
   "main": "index.js",
-  "version": "8.7.0",
+  "version": "1.0.0",
+  "engines": {
+    "node": "8.7.x",
+    "npm": "5.5.x"
+  },
   "scripts": {
     "build": "webpack --display-error-details --config webpack.js",
     "go": "webpack --display-error-details --config webpack.js && node index.js",
