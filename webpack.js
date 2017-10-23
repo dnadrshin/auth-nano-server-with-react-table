@@ -22,18 +22,34 @@ module.exports = {
     ],
 
     module: {
-        loaders: [{
-            test   : /\.jsx?$/,
-            loader : 'babel-loader',
-            exclude: [/node_modules/],
+        loaders: [
+            {
+                test   : /\.jsx?$/,
+                loader : 'babel-loader',
+                exclude: [/node_modules/],
 
-            query: {
-                presets: ['es2015', 'react', 'stage-0', 'stage-1'],
+                query: {
+                    presets: ['es2015', 'react', 'stage-0', 'stage-1'],
+                },
             },
-        }, {
-            test  : /\.css$/,
-            loader: 'style-loader!css-loader',
-        }],
+
+            {
+                test   : /\.css$/,
+                exclude: [/node_modules/],
+                loader : [
+                    'style-loader?sourceMap',
+                    'css-loader?modules&camelCase=dashes&importLoaders=1&localIdentName=[local]__[hash:base64:5]!postcss-loader',
+                ],
+            },
+            {
+                test   : /\.css$/,
+                include: [/node_modules/],
+                loader : [
+                    'style-loader?sourceMap',
+                    'css-loader',
+                ],
+            },
+        ],
     },
     resolve: {
         extensions: ['.json', '.js'],
