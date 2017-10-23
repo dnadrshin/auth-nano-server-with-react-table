@@ -1,6 +1,7 @@
 const
     _ = require('lodash'),
     convertToReport = require('../convert-to-report'),
+
     reports = [
         {'_id': '59e7cc800274fb13f403c161', 'date': '2017-10-18T21:49:41.971Z', 'distance': 12, 'time': '12', 'userId': '59e7c8fdab003f1079b035cf', '__v': 0},
         {'_id': '59e7cc8e0274fb13f403c163', 'date': '2017-10-18T21:49:41.971Z', 'distance': 11, 'time': '111', 'userId': '59e7c8fdab003f1079b035cf', '__v': 0},

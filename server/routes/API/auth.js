@@ -22,8 +22,8 @@ router.post('/login', (req, res, next) => passport.authenticate('local', (err, u
 
 router.post('/verify', (req, res) => {
     jwt.verify(req.body.token, 'tracker_key', (err, decoded) => err
-            ? res.status(401)
-            : res.json({id: decoded.user, name: decoded.userName});
+        ? res.status(401)
+        : res.json({id: decoded.user, name: decoded.userName}),
     );
 });
 

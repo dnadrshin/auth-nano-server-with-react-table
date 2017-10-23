@@ -1,0 +1,12 @@
+.header-nav {
+    flex: 1 auto;
+    display: flex;
+    & > a {
+        padding: 10px;
+        text-decoration: none;
+        color: #fff;
+        &:hover {
+            background: #A6B9CC;
+        }
+    }
+}

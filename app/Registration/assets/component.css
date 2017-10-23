@@ -1,0 +1,14 @@
+.registration {
+    & > form{
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        margin: auto;
+        & > input {
+            margin-top: 7px;
+        }
+        & > button {
+            margin-top: 7px;
+        }
+    }
+}

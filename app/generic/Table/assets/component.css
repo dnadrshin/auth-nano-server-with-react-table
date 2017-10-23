@@ -1,0 +1,24 @@
+.main-table {
+    & > table {
+        width: 100%;
+        border-collapse: collapse;
+
+        & td {
+            padding: 7px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid;
+        }
+
+        & th {
+            padding: 7px;
+            text-align: center;
+            vertical-align: middle;
+            & > i {
+                vertical-align: middle;
+                cursor: pointer;
+            }
+        }
+    }
+
+}
