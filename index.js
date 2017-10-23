@@ -40,6 +40,8 @@ app.get('*', (req, res) => {
 
 passportInit(app);
 
+console.log(prodDB)
+
 mongoose.connect(
     prodDB ? prodDB : settings.mongodbUrl,
     {useMongoClient: true},
