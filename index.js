@@ -12,6 +12,7 @@ const
     app = express(),
     compiler = webpack(config),
     settings = require('./server/settings'),
+    prodDB = process.env.NODE_MODULES_DB,
     passportInit = require('./server/passport');
 
 global.__base = path.join(__dirname, '/');
@@ -40,7 +41,7 @@ app.get('*', (req, res) => {
 passportInit(app);
 
 mongoose.connect(
-    NPM_TEMP_PROD ? NODE_MODULES_DB : settings.mongodbUrl,
+    prodDB ? prodDB : settings.mongodbUrl,
     {useMongoClient: true},
     err => console.log(err ? 'Could not connect to mongodb!' : 'MongoDB connection established'),
 );
