@@ -1,4 +1,5 @@
 const
+    _ = require('lodash'),
     passport = require('passport'),
     User = require('../../models/User'),
     jwt = require('jsonwebtoken'),
@@ -11,11 +12,11 @@ router.post('/login', (req, res, next) => passport.authenticate('local', (err, u
 
     res.json({
         user    : user._id,
-        userName: user.name,
+        userName: user.username,
 
         token: jwt.sign({
             user    : user._id.toString(),
-            userName: user.name,
+            userName: user.username,
             exp     : Math.floor(Date.now() / 1000) + (24 * 60 * 60)
         }, 'tracker_key')});
 })(req, res, next));
