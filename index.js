@@ -39,9 +39,8 @@ app.get('*', (req, res) => {
 
 passportInit(app);
 
-// Connect mongoose
 mongoose.connect(
-    NPM_CONFIG_PRODUCTION ? NODE_MODULES_DB : settings.mongodbUrl,
+    NPM_TEMP_PROD ? NODE_MODULES_DB : settings.mongodbUrl,
     {useMongoClient: true},
     err => console.log(err ? 'Could not connect to mongodb!' : 'MongoDB connection established'),
 );
