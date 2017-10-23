@@ -13,6 +13,6 @@ export default [
 
     {
         title: 'Average speed',
-        name : 'avgSpeed',
+        name : 'speed',
     },
 ];

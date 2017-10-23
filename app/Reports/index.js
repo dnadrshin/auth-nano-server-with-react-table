@@ -11,34 +11,41 @@ const
         <Table
             data={props.report}
             columns={columns}
+            submit={props.submit}
             module="report"
-
-            entityActions={{
-                edit  : () => {},
-                remove: () => {},
-            }}
         />
-
-        <button onClick={props.pushURL('new')}>New Record</button>
     </div>;
 
 export default compose(
     connect(
         state => ({
-            report: _.get(state, 'rest.report.data', []),
+            report   : _.get(state, 'rest.report.data', []),
+            sorting  : _.get(state, 'table.report.sorting', {}),
         }),
 
         dispatch => ({
             sync   : (data, cb) => dispatch(rest.actions.report.sync(data, cb)),
-            pushURL: id => () => dispatch(push(`/reports/edit/${id}`)),
-            dispatch,
         }),
     ),
+
+    withHandlers({
+        submit: props => () => props.sync(
+            {
+                id: localStorage.getItem('id'),
+                order  : props.sorting.order,
+                orderBy: props.sorting.column,
+            },
+
+            (err, data) => {
+                if (err) console.log(err);
+            },
+        )
+    }),
 
     lifecycle({
         componentDidMount() {
             this.props.sync(
-                {id: 1},
+                {id: localStorage.getItem('id')},
 
                 (err, data) => {
                     console.log('reports sync', err, data)

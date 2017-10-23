@@ -1,12 +1,22 @@
 export default [
     {
+        title: 'Username',
+        name : 'username',
+    },
+
+    {
         title: 'First Name',
         name : 'firstName',
     },
 
     {
         title: 'Last Name',
-        name : 'lastName',
+        name : 'surName',
+    },
+
+    {
+        title: 'Role',
+        name : 'role',
     },
 
     {

@@ -19,5 +19,5 @@ export default [
     {
         title: 'Average speed',
         name : 'transformed.avrSpeed',
-    }
+    },
 ];

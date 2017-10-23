@@ -3,7 +3,7 @@ import {push} from 'react-router-redux';
 import {connect} from 'react-redux';
 import {compose, lifecycle, withHandlers} from 'recompose';
 import Loading from 'generic/Loading';
-import Table from 'Table';
+import Table from 'generic/Table';
 import columns from './columns';
 import rest from './rest';
 
@@ -13,16 +13,16 @@ const
             data={props.records}
             columns={columns}
             module="records"
+            submit={props.submit}
 
-            entityActions={{
-                edit  : props.pushURL,
-                remove: props.removeWithSync,
-            }}
+            actionsColumns={[
+                {type: 'edit', title: 'Edit', name: 'mode edit', isServiceField: true, action: props.pushURL}, 
+                {type: 'remove', title: 'Delete', name: 'delete', isServiceField: true, action: props.removeWithSync},
+            ]}
         />
 
+        <button name="new" onClick={props.pushURL('new')}>New Record</button>
         {props.isLoading && <Loading />}
-
-        <button onClick={props.pushURL('new')}>New Record</button>
     </div>;
 
 export default compose(
@@ -30,20 +30,40 @@ export default compose(
         state => ({
             isLoading: state.rest.records.loading,
             records  : state.rest.records.data,
+            sorting  : _.get(state, 'table.records.sorting', {}),
         }),
 
         dispatch => ({
             sync   : (data, cb) => dispatch(rest.actions.records.sync(data, cb)),
             pushURL: id => () => dispatch(push(`/records/edit/${id}`)),
+            removeRecord: (id, cb) => dispatch(rest.actions.deleteRecord.delete({id}, cb)),
             dispatch,
         }),
     ),
 
     withHandlers({
-        removeWithSync: props => id => () => props.dispatch(
-            rest.actions.deleteRecord.delete({id}, null, (err, data) => {
-                props.sync();
-            })),
+        removeWithSync: props => id => () => {
+            props.removeRecord(id, () => {
+                props.sync(
+                    null,
+    
+                    (err, data) => {
+                        if (err) console.log(err);
+                    },
+                );
+            });
+        },
+
+        submit: props => () => props.sync(
+            {
+                order  : props.sorting.order,
+                orderBy: props.sorting.column,
+            },
+
+            (err, data) => {
+                if (err) console.log(err);
+            },
+        )
     }),
 
     lifecycle({

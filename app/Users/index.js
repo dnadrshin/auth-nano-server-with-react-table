@@ -2,7 +2,7 @@ import React from 'react';
 import {push} from 'react-router-redux';
 import { connect } from 'react-redux';
 import Loading from 'generic/Loading';
-import Table from 'Table';
+import Table from 'generic/Table';
 import { compose, lifecycle, withHandlers } from 'recompose';
 import columns from './columns';
 import rest from './rest';
@@ -13,16 +13,16 @@ const
                 data={props.users}
                 columns={columns}
                 module="users"
-
-                entityActions={{
-                    edit  : props.pushURL,
-                    remove: props.removeWithSync,
-                }}
+                
+                actionsColumns={[
+                    {type: 'edit', title: 'Edit', name: 'mode edit', isServiceField: true, action: props.pushURL}, 
+                    {type: 'remove', title: 'Delete', name: 'delete', isServiceField: true, action: props.removeWithSync},
+                ]}
             />
 
             {props.isLoading && <Loading />}
 
-            <button onClick={props.pushURL('new')}>New Record</button>
+            <button name="new" onClick={props.pushURL('new')}>New User</button>
         </div>;
 
 export default compose(
