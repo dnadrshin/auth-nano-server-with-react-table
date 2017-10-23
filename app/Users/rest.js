@@ -4,13 +4,13 @@ import adapterFetch from 'redux-api/lib/adapters/fetch';
 import {transformGetRequest, transformJSONRequest} from 'generic/helpers';
 
 const
-    options = {
+    options = () => ({
         headers: {
             'token'       : localStorage.getItem('token'),
             'Accept'      : 'application/json',
             'Content-Type': 'application/json',
         },
-    };
+    });
 
 export default reduxApi({
     users: {
