@@ -4,7 +4,8 @@ import React from 'react';
 import { actions, Field } from 'react-redux-form';
 import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import classNames from 'classnames';
+import style from 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 
 const

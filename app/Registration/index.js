@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { Control, Form, Field } from 'react-redux-form';
 import { compose, withHandlers } from 'recompose';
 import {push} from 'react-router-redux';
-import rest from './rest'
+import rest from './rest';
+import classNames from 'classnames';
+import styles from './assets/component.css';
 
 const
     initForm = {username: '', firstName: '', surName: '', passwordFirst: '', passwordSecond: ''},
@@ -12,14 +14,16 @@ const
     RegistartionForm = (props: {
         submit: Function,
         record: {}
-    }) => <Form model="registration" onSubmit={props.submit}>
-        <Control.text model="registration.firstName" placeholder="First Name" id="registration.firstName" />
-        <Control.text model="registration.surName" placeholder="Surame" id="registration.surName" />
-        <Control.text model="registration.username" placeholder="Email" id="registration.username" />
-        <Control.text type="password" model="registration.passwordFirst" placeholder="Password" id="registration.passwordFirst" />
-        <Control.text type="password" model="registration.passwordSecond" placeholder="Repeat password" id="registration.passwordSecond" />
-        <button>Submit!</button>
-    </Form>;
+    }) => <x-registration class={classNames(styles.registration, styles.className)}>
+            <Form model="registration" onSubmit={props.submit}>
+            <Control.text model="registration.firstName" placeholder="First Name" id="registration.firstName" />
+            <Control.text model="registration.surName" placeholder="Surame" id="registration.surName" />
+            <Control.text model="registration.username" placeholder="Email" id="registration.username" />
+            <Control.text type="password" model="registration.passwordFirst" placeholder="Password" id="registration.passwordFirst" />
+            <Control.text type="password" model="registration.passwordSecond" placeholder="Repeat password" id="registration.passwordSecond" />
+            <button>Submit!</button>
+        </Form>
+    </x-registration>;
 
 export default compose(
     connect(

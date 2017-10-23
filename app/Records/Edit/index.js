@@ -6,7 +6,6 @@ import { compose, withHandlers, lifecycle } from 'recompose';
 import SelectField from 'generic/SelectField';
 import DateField from 'generic/DateField';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import rest from '../rest';
 import { track, actions } from 'react-redux-form';
@@ -19,16 +18,18 @@ const
     RecordForm = (props: {
         submit: Function,
         record: {}
-    }) => <Form model="record" onSubmit={props.submit}>
-        <DateField
-            model="record.date"
-        />
+    }) => <x-edit>
+        <Form model="record" onSubmit={props.submit}>
+            <DateField
+                model="record.date"
+            />
 
-        <Control.text model="record.distance" id="record.distance" placeholder="Distance" />
-        <Control.text model="record.time" id="record.time" placeholder="Time" />
-        <button>Submit!</button>
-        {props.isLoading && <Loading />}
-    </Form>;
+            <Control.text model="record.distance" id="record.distance" placeholder="Distance" />
+            <Control.text model="record.time" id="record.time" placeholder="Time" />
+            <button>Submit!</button>
+            {props.isLoading && <Loading />}
+        </Form>
+    </x-edit>;
 
 export default compose(
     connect(
@@ -55,11 +56,7 @@ export default compose(
                     {id: this.props.params.id},
                     null,
 
-                    (err, data) => {
-                        this.props.change('record.distance', data.data[0].distance);
-                        this.props.change('record.time', data.data[0].time);
-                        this.props.change('record.date', data.data[0].date);
-                    }
+                    (err, data) => _.map(['distance', 'time', 'surName', 'date'], el => this.props.change(`record.${el}`, data.data[0][el]))
                 );
         },
         

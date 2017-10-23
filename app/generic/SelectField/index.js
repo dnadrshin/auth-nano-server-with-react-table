@@ -8,10 +8,10 @@ const SelectFiled = ({path, model, option, list, value, listModel}) => <Field mo
     <select>
         {list.map(el => <option value={el[value]} key={el[value]}>{el[option]}</option>)}
     </select>
-</Field>
+</Field>;
 
 export default connect(
     (state, props) => ({
-        list: _.get(state, props.listModel)
-    })
+        list: props.list || _.get(state, props.listModel, []),
+    }),
 )(SelectFiled);
