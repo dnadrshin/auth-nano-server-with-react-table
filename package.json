@@ -4,7 +4,7 @@
   "description": "tracker",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --display-error-details --config config/webpack.js",
+    "build": "webpack --display-error-details --config webpack.js",
     "go": "webpack --display-error-details --config webpack.js && node index.js",
     "lint": "eslint app",
     "heroku-postbuild": "webpack --display-error-details --config webpack.js",
