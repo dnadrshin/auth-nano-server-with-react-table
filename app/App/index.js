@@ -17,8 +17,8 @@ const
         />
 
         <x-content>
-            {(props.hasToken || props.location.pathname === '/registration') 
-                && React.cloneElement(props.children, {
+            {(props.hasToken || props.location.pathname === '/registration')
+                && props.children && React.cloneElement(props.children, {
                     toggleHasToken: props.toggleHasToken
             })}
         </x-content>
