@@ -13,6 +13,7 @@ const
     compiler = webpack(config),
     settings = require('./server/settings'),
     prodDB = process.env.NODE_MODULES_DB,
+    nodeEnv = process.env.NODE_ENV,
     passportInit = require('./server/passport');
 
 global.__base = path.join(__dirname, '/');
@@ -33,10 +34,7 @@ app.use(require('webpack-hot-middleware')(compiler));
 
 app.use('/public', express.static('public'));
 app.use('/API', apiRoutes);
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 passportInit(app);
 
@@ -48,7 +46,9 @@ mongoose.connect(
 
 mongoose.set('debug', true);
 
-app.listen(settings.port, (err) => {
+const server = app.listen(settings.port, (err) => {
     if (err) return console.log(err);
     return console.log(`Listening at http://localhost:${settings.port}`);
 });
+
+server.keepAliveTimeout = 120000 * 5;
