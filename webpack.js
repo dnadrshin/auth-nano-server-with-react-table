@@ -12,9 +12,9 @@ module.exports = {
     ],
 
     output: {
-        path      : path.join(__dirname, 'dist'),
+        path      : path.join(__dirname, 'public/dist'),
         filename  : 'bundle.js',
-        publicPath: '/dist/',
+        publicPath: '/public/dist/',
     },
 
     plugins: [
@@ -41,6 +41,7 @@ module.exports = {
                     'css-loader?modules&camelCase=dashes&importLoaders=1&localIdentName=[local]__[hash:base64:5]!postcss-loader',
                 ],
             },
+
             {
                 test   : /\.css$/,
                 include: [/node_modules/],
@@ -51,6 +52,7 @@ module.exports = {
             },
         ],
     },
+
     resolve: {
         extensions: ['.json', '.js'],
 
