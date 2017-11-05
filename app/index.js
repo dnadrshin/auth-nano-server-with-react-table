@@ -19,8 +19,6 @@ const
     logger = createLogger({}),
     store = createStore(reducer, applyMiddleware(thunk, logger, routerMiddleware(browserHistory)));
 
-console.log(store.getState());
-
 ReactDOM.render(
     <Provider store={store}>
         <Router history={syncHistoryWithStore(browserHistory, store)}>
