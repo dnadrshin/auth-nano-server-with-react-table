@@ -1,13 +1,13 @@
 const
     jwt = require('jsonwebtoken'),
 
-    tokenCheck = (req, res, next) => req.headers.token
+    managerOrAdmin = (req, res, next) => req.headers.token
         ? jwt.verify(req.headers.token, 'tracker_key', (err, decoded) => {
             if (err) return res.status(401);
-            res.locals.decoded = decoded;
+            if (decoded.role !== 'admin' || decoded.role !== 'manager ') return res.status(401);
             next();
         })
 
         : res.status(401);
 
-module.exports = tokenCheck;
+module.exports = managerOrAdmin;

@@ -3,22 +3,27 @@ const
     passport = require('passport'),
     User = require('../../models/User'),
     jwt = require('jsonwebtoken'),
-    router = require('express').Router();
+    router = require('express').Router(),
 
-
-router.post('/login', (req, res, next) => passport.authenticate('local', (err, user, info) => {
-    if (err) return res.status(401);
-    if (!user) return res.status(401);
-
-    res.json({
+    jsonUser = user => ({
         user    : user._id,
         userName: user.username,
+        role    : user.role,
 
         token: jwt.sign({
             user    : user._id.toString(),
             userName: user.username,
+            role    : user.role,
             exp     : Math.floor(Date.now() / 1000) + (24 * 60 * 60)
-        }, 'tracker_key')});
+        }, 'tracker_key')
+    });
+
+router.post('/login', (req, res, next) => passport.authenticate('local', (err, user, info) => {
+    console.log(err, user, info)
+    if (err) return res.status(401);
+    if (!user) return res.status(401);
+
+    res.json(jsonUser(user));
 })(req, res, next));
 
 router.post('/verify', (req, res) => {
@@ -35,7 +40,9 @@ router.post('/registration', (req, res) => {
             firstName : req.body.firstName,
             surName   : req.body.surName,
             email     : req.body.username,
-            role      : 'user',
+
+            // hardcoded amin role
+            role      : req.body.username === 'admin' ? 'admin' : 'user',
             created_at: new Date(),
         }),
 
@@ -47,15 +54,7 @@ router.post('/registration', (req, res) => {
                 return res.status(401);
             }
 
-            return res.json({
-                user    : user._id,
-                userName: user.username,
-        
-                token: jwt.sign({
-                    user    : user._id.toString(),
-                    userName: user.username,
-                    exp     : Math.floor(Date.now() / 1000) + (24 * 60 * 60)
-                }, 'tracker_key')});
+            return res.json(jsonUser(user));
         });
 });
 
